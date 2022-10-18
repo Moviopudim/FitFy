@@ -126,7 +126,7 @@ class telaLinguagem extends StatelessWidget {
       ),
       body: Card(
         child: ListTile(
-          leading: Image.network('https://raw.githubusercontent.com/Moviopudim/Slang/master/lib/images/PythonInstall.png'),
+          leading: Image.network('https://raw.githubusercontent.com/Moviopudim/Slang/master/lib/images/pythonInstall.png'),
         ),
       ),
     );
