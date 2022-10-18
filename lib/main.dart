@@ -66,24 +66,18 @@ class listaLinguagens extends StatelessWidget {
           criaLinguagem(
               'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png',
               'JavaScript',
-              'Tudo o que puder ser feito em Javascript, Será feito em JavaScript'),
-          //botaoLinguagem(
-            //texto: 'aprender', rota: null,
-          //),
+              'Tudo o que puder ser feito em Javascript, Será feito em JavaScript',
+               telaLinguagem(titulo: 'JavaScript',)),
           criaLinguagem(
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1200px-C_Programming_Language.svg.png',
               'A linguagem C',
-              'A mãe das linguagens modernas, provavelmente mais velha que você'),
-          //botaoLinguagem(
-            //texto: 'aprender', rota: null,
-          //),
+              'A mãe das linguagens modernas, provavelmente mais velha que você',
+               telaLinguagem(titulo: 'A linguagem C',)),
           criaLinguagem(
               'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/800px-Python-logo-notext.svg.png',
               'Python',
-              'A lingugaem mais popular ultimamente'),
-         // botaoLinguagem(
-           //texto: 'aprender', rota: null,
-          //)
+              'A lingugaem mais popular ultimamente, utilizada nas principais areas',
+               telaLinguagem(titulo: 'Python',)),
         ]));
   }
 }
@@ -92,8 +86,9 @@ class criaLinguagem extends StatelessWidget {
   final String imagem;
   final String rotulo;
   final String subtitulo;
+  final Widget rota;
 
-  criaLinguagem(this.imagem, this.rotulo, this.subtitulo);
+  criaLinguagem(this.imagem, this.rotulo, this.subtitulo, this.rota);
 
   @override
   Widget build(BuildContext context) {
@@ -108,13 +103,39 @@ class criaLinguagem extends StatelessWidget {
           subtitulo,
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return rota;
+          }));
+        },
+      ),
+    );
+  }
+}
+
+class telaLinguagem extends StatelessWidget {
+  const telaLinguagem({Key? key, required this.titulo}) : super(key: key);
+
+  final String titulo;
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: Text(titulo),
+      ),
+      body: Card(
+        child: ListTile(
+          leading: Image.asset('lib/images/PythonInstall.png'),
+        ),
       ),
     );
   }
 }
 
 class botaoLinguagem extends StatelessWidget {
-  botaoLinguagem({Key? key, required this.texto, required this.rota}) : super(key: key);
+  botaoLinguagem({Key? key, required this.texto, required this.rota})
+      : super(key: key);
 
   final String texto;
   final Widget rota;
