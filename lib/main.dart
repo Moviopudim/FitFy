@@ -12,14 +12,45 @@ class slang extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
-        body: listaLinguagens(),
+        body: MyHomePage(),
       ),
     );
   }
 }
 
-class listaLinguagens extends StatelessWidget {
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter Example'),
+        ),
+        body: Container(
+          height: double.infinity,
+          // set the width of this Container to 100% screen width
+          width: double.infinity,
+
+          child: Column(
+            // Vertically center the widget inside the column
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 70,
+                width: 152,
+                child: botaoLinguagem(
+                  texto: 'Linguagens',
+                  rota: listaLinguagens(),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class listaLinguagens extends StatelessWidget {
   final ButtonStyle estiloBotao = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 23),
       backgroundColor: Colors.black26);
@@ -31,37 +62,36 @@ class listaLinguagens extends StatelessWidget {
           title: const Text('Linguagens'),
           backgroundColor: Colors.black38,
         ),
-
         body: ListView(children: <Widget>[
-          Card(
-            child: ListTile(
-              leading: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png'),
-              title: const Text('Javascript',
-                style: TextStyle(fontSize: 32, fontFamily: 'Roboto'),),
-              subtitle: const Text(
-                'Tudo o que puder ser feito em JavaScript será feito em JavaScript',
-                style: TextStyle(fontStyle: FontStyle.italic),),
-            ),
-          ),
-          ElevatedButton(onPressed: () {},
-            style: estiloBotao,
-            child: const Text('Aprender'),),
-
+          criaLinguagem(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png',
+              'JavaScript',
+              'Tudo o que puder ser feito em Javascript, Será feito em JavaScript'),
+          //botaoLinguagem(
+            //texto: 'aprender', rota: null,
+          //),
           criaLinguagem(
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1200px-C_Programming_Language.svg.png',
               'A linguagem C',
-              'A mãe das linguagens modernas, provavelmente mais velha que você')
+              'A mãe das linguagens modernas, provavelmente mais velha que você'),
+          //botaoLinguagem(
+            //texto: 'aprender', rota: null,
+          //),
+          criaLinguagem(
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/800px-Python-logo-notext.svg.png',
+              'Python',
+              'A lingugaem mais popular ultimamente'),
+         // botaoLinguagem(
+           //texto: 'aprender', rota: null,
+          //)
         ]));
   }
 }
 
 class criaLinguagem extends StatelessWidget {
-
   final String imagem;
   final String rotulo;
   final String subtitulo;
-
 
   criaLinguagem(this.imagem, this.rotulo, this.subtitulo);
 
@@ -71,9 +101,38 @@ class criaLinguagem extends StatelessWidget {
       child: ListTile(
         leading: Image.network(imagem),
         title: Text(
-          rotulo, style: TextStyle(fontSize: 32, fontFamily: 'Roboto'),),
+          rotulo,
+          style: TextStyle(fontSize: 32, fontFamily: 'Roboto'),
+        ),
         subtitle: Text(
-          subtitulo, style: TextStyle(fontStyle: FontStyle.italic),),
+          subtitulo,
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
       ),
     );
-  }}
+  }
+}
+
+class botaoLinguagem extends StatelessWidget {
+  botaoLinguagem({Key? key, required this.texto, required this.rota}) : super(key: key);
+
+  final String texto;
+  final Widget rota;
+
+  final ButtonStyle estiloBotao = ElevatedButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 23),
+      backgroundColor: Colors.black26);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return rota;
+        }));
+      },
+      style: estiloBotao,
+      child: Text(texto),
+    );
+  }
+}
