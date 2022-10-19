@@ -25,23 +25,20 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter Example'),
+          title: const Text('Home'),
         ),
         body: Container(
           height: double.infinity,
-          // set the width of this Container to 100% screen width
           width: double.infinity,
-
           child: Column(
-            // Vertically center the widget inside the column
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 70,
-                width: 152,
-                child: botaoLinguagem(
-                  texto: 'Linguagens',
-                  rota: listaLinguagens(),
+                width: 170,
+                child: botaoHome(
+                  texto: 'Suplementos',
+                  rota: listaSuplementos(),
                 ),
               ),
             ],
@@ -50,7 +47,7 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class listaLinguagens extends StatelessWidget {
+class listaSuplementos extends StatelessWidget {
   final ButtonStyle estiloBotao = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 23),
       backgroundColor: Colors.black26);
@@ -59,42 +56,35 @@ class listaLinguagens extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Linguagens'),
+          title: const Text('Suplementos'),
           backgroundColor: Colors.black38,
         ),
         body: ListView(children: <Widget>[
-          criaLinguagem(
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png',
-              'JavaScript',
-              'Tudo o que puder ser feito em Javascript, Será feito em JavaScript',
-               telaLinguagem(titulo: 'JavaScript',)),
-          criaLinguagem(
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1200px-C_Programming_Language.svg.png',
-              'A linguagem C',
-              'A mãe das linguagens modernas, provavelmente mais velha que você',
-               telaLinguagem(titulo: 'A linguagem C',)),
-          criaLinguagem(
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/800px-Python-logo-notext.svg.png',
-              'Python',
-              'A lingugaem mais popular ultimamente, utilizada nas principais areas',
-               telaLinguagem(titulo: 'Python',)),
+          criaSuplemento.CriaSuplemento(
+              'https://integralmedica.vteximg.com.br/arquivos/ids/162992-0-0/MicrosoftTeams-image.png?v=637744811631300000',
+              'Whey Protein',
+              'O Famosinho dos suplementos, aquele que todo mundo conhece',
+              const telaSuplemento(titulo: 'Whey Protein', rotulo: 'Whey Protein', subtitulo: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', imagem:'https://integralmedica.vteximg.com.br/arquivos/ids/155461-0-0/HIPERCALORICO-PROTEINA-NUTRIWHEY-BAUNILHA-POTE-907G-INTEGRALMEDICA.png?v=637002034035000000',
+              ))
         ]));
   }
 }
 
-class criaLinguagem extends StatelessWidget {
+class criaSuplemento extends StatelessWidget {
   final String imagem;
   final String rotulo;
   final String subtitulo;
   final Widget rota;
 
-  criaLinguagem(this.imagem, this.rotulo, this.subtitulo, this.rota);
+  criaSuplemento.CriaSuplemento(
+      this.imagem, this.rotulo, this.subtitulo, this.rota,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Image.network(imagem),
+        leading: Image.network(imagem, width: 100),
         title: Text(
           rotulo,
           style: TextStyle(fontSize: 32, fontFamily: 'Roboto'),
@@ -113,28 +103,47 @@ class criaLinguagem extends StatelessWidget {
   }
 }
 
-class telaLinguagem extends StatelessWidget {
-  const telaLinguagem({Key? key, required this.titulo}) : super(key: key);
+class telaSuplemento extends StatelessWidget {
+  const telaSuplemento(
+      {Key? key,
+      required this.titulo,
+      required this.rotulo,
+      required this.subtitulo,
+      required this.imagem})
+      : super(key: key);
 
   final String titulo;
+  final String rotulo;
+  final String subtitulo;
+  final String imagem;
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(titulo),
       ),
       body: Card(
         child: ListTile(
-          leading: Image.network('https://raw.githubusercontent.com/Moviopudim/Slang/master/lib/images/pythonInstall.png'),
+          leading: Image.network(imagem, width: 50, height: 150,),
+          title: Text(
+            rotulo,
+            style: TextStyle(fontSize: 24),
+          ),
+          subtitle: Text(
+            subtitulo,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class botaoLinguagem extends StatelessWidget {
-  botaoLinguagem({Key? key, required this.texto, required this.rota})
+class botaoHome extends StatelessWidget {
+  botaoHome({Key? key, required this.texto, required this.rota})
       : super(key: key);
 
   final String texto;
