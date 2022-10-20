@@ -60,11 +60,31 @@ class listaSuplementos extends StatelessWidget {
           backgroundColor: Colors.black38,
         ),
         body: ListView(children: <Widget>[
+
+
           criaSuplemento.CriaSuplemento(
               'https://integralmedica.vteximg.com.br/arquivos/ids/162992-0-0/MicrosoftTeams-image.png?v=637744811631300000',
               'Whey Protein',
               'O Famosinho dos suplementos, aquele que todo mundo conhece',
-              const telaSuplemento(titulo: 'Whey Protein', rotulo: 'Whey Protein', subtitulo: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', imagem:'https://integralmedica.vteximg.com.br/arquivos/ids/155461-0-0/HIPERCALORICO-PROTEINA-NUTRIWHEY-BAUNILHA-POTE-907G-INTEGRALMEDICA.png?v=637002034035000000',
+              const telaSuplemento(
+                titulo: 'Whey Protein',
+                rotulo: 'Whey Protein',
+                subtitulo:
+                    'O Whey não é nada mais do que uma fonte de proteina versatil e 100% segura. Porém ele não deve ser a sua principal fonte de proteinas, que deve vir de alimentos como frango e carne. Para tomar o suplemento em pó basta misturar com agua, leite ou até mesmo em um shake. ',
+                imagem:
+                    'https://integralmedica.vteximg.com.br/arquivos/ids/155461-0-0/HIPERCALORICO-PROTEINA-NUTRIWHEY-BAUNILHA-POTE-907G-INTEGRALMEDICA.png?v=637002034035000000',
+              )),
+          criaSuplemento.CriaSuplemento(
+              'https://www.madrugaosuplementos.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/r/creatina-integralmedica-300g.png',
+              'Creatina',
+              '"Aquele que os marombas tomam mas ninguem sabe o que faz"',
+              const telaSuplemento(
+                titulo: 'Creatina',
+                rotulo: 'Creatina',
+                subtitulo:
+                    'A creatina, em resumo, aumenta a quantidade de agua dentro do seu musculo, fazendo seus musculos paracerem mais "cheios", para tomar basta misturar a quantidade ideal para o seu peso em um copo d´agua.',
+                imagem:
+                    'https://www.madrugaosuplementos.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/r/creatina-integralmedica-300g.png',
               ))
         ]));
   }
@@ -125,15 +145,20 @@ class telaSuplemento extends StatelessWidget {
       ),
       body: Card(
         child: ListTile(
-          leading: Image.network(imagem, width: 50, height: 150,),
+          leading: Image.network(
+            imagem,
+            width: 50,
+            height: 150,
+          ),
           title: Text(
             rotulo,
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 32),
           ),
           subtitle: Text(
             subtitulo,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 17,
             ),
           ),
         ),
