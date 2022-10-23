@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
@@ -6,6 +7,7 @@ import 'package:sang/main.dart';
 
 import '../Screens/Home.dart';
 import '../Screens/Lista de suplementos.dart';
+import '../Screens/listaCapsulas.dart';
 
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
@@ -44,7 +46,7 @@ class _contadorPassosState extends State<contadorPassos> {
   void onPedestrianStatusError(error) {
     print('onPedestrianStatusError: $error');
     setState(() {
-      _status = 'Pedestrian Status not available';
+      _status = 'Estatus do pedestre não disponiveis';
     });
     print(_status);
   }
@@ -52,7 +54,7 @@ class _contadorPassosState extends State<contadorPassos> {
   void onStepCountError(error) {
     print('onStepCountError: $error');
     setState(() {
-      _steps = 'Step Count not available';
+      _steps = 'Seu contador de passos não está disponivel';
     });
   }
 
@@ -73,9 +75,9 @@ class _contadorPassosState extends State<contadorPassos> {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Capsulas'),
-          backgroundColor: Colors.black38,
+        appBar: NeumorphicAppBar(
+          title: Text('Passos'),
+          buttonStyle: NeumorphicStyle(depth: 3),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
@@ -148,9 +150,9 @@ class _contadorPassosState extends State<contadorPassos> {
                 style: TextStyle(fontSize: 30),
               ),
               Icon(
-                _status == 'walking'
+                _status == 'Andando'
                     ? Icons.directions_walk
-                    : _status == 'stopped'
+                    : _status == 'Parado'
                     ? Icons.accessibility_new
                     : Icons.error,
                 size: 100,
@@ -158,7 +160,7 @@ class _contadorPassosState extends State<contadorPassos> {
               Center(
                 child: Text(
                   _status,
-                  style: _status == 'walking' || _status == 'stopped'
+                  style: _status == 'Andando' || _status == 'Parado'
                       ? TextStyle(fontSize: 30)
                       : TextStyle(fontSize: 20, color: Colors.red),
                 ),

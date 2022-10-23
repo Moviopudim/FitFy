@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../Funcoes/Cria o suplemento.dart';
 import '../Screens/DetalhesSuplemento.dart';
 import '../main.dart';
+import 'Home.dart';
+import 'listaCapsulas.dart';
 
 class listaSuplementos extends StatelessWidget {
-  final ButtonStyle estiloBotao = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 23),
-      backgroundColor: Colors.black26);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Suplementos'),
-          backgroundColor: Colors.black38,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.black12,
-          child: const Icon(Icons.account_balance),
+        appBar: NeumorphicAppBar(
+          title: Text('Suplementos'),
+          buttonStyle: NeumorphicStyle(depth: 3),
         ),
         drawer: Drawer(
           child: ListView(
@@ -26,7 +20,7 @@ class listaSuplementos extends StatelessWidget {
             children: <Widget>[
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.black38,
+                  color: Colors.black12,
                 ),
                 child: Text(
                   'Categorias',

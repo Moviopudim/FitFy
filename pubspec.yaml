@@ -39,6 +39,7 @@ dependencies:
   iconsax: ^0.0.8
   air_quality: ^2.0.0
   pedometer: ^3.0.0
+  flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
   flutter_test:

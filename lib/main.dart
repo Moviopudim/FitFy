@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import './Screens/Lista de suplementos.dart';
-import '../Funcoes/contador passos.dart';
+import 'package:sang/Screens/Home.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
   runApp(slang());
@@ -11,93 +11,25 @@ class slang extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      home: const Scaffold(
-        body: MyHomePage(),
+    return const NeumorphicApp(
+      title: 'Home',
+      themeMode: ThemeMode.dark,
+      theme: NeumorphicThemeData(
+        baseColor: Colors.black12,
+        lightSource: LightSource.topLeft,
+        shadowDarkColor: Colors.black45,
+        depth: 6,
       ),
+      darkTheme: NeumorphicThemeData(
+        baseColor: Color(0xFF3E3E3E),
+        lightSource: LightSource.topLeft,
+        depth: 6,
+      ),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            botaoHome('Suplementos', listaSuplementos(), Size.fromHeight(36)),
-            botaoHome('Capsulas', listaCapsulas(), Size.fromHeight(36)),
-            botaoHome('seus passos', contadorPassos(), Size.fromHeight(18)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class listaCapsulas extends StatelessWidget {
-  const listaCapsulas({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Capsulas'),
-        backgroundColor: Colors.black38,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.black12,
-        child: const Icon(Icons.account_balance),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.black38,
-              ),
-              child: Text(
-                'Categorias',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-                leading: Icon(Icons.home_filled),
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MyHomePage();
-                  }));
-                }),
-            ListTile(
-              leading: Icon(Icons.ad_units),
-              title: Text('Suplementos'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return listaSuplementos();
-                }));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class botaoHome extends StatelessWidget {
   final String texto;
@@ -108,12 +40,22 @@ class botaoHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return NeumorphicButton(
+        margin: EdgeInsets.only(top: 12),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) {
             return rota;
           }));
         },
-        child: Text(texto));
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+        ),
+        padding: const EdgeInsets.all(12.0),
+        child: Text(
+          texto,
+          style: TextStyle(color: Colors.white),
+        ));
   }
 }
