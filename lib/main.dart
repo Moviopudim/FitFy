@@ -40,7 +40,7 @@ class botaoHome extends StatelessWidget {
       ),
       size: GFSize.LARGE,
       color: Colors.black54,
-      shape: GFButtonShape.pills,
+      shape: GFButtonShape.standard,
     );
   }
 }
