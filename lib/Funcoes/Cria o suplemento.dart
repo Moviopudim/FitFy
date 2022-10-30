@@ -19,7 +19,6 @@ class criaSuplemento extends StatelessWidget {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(2)),
           depth: -8,
           lightSource: LightSource.topLeft,
-          intensity: 0,
           color: Colors.transparent
       ),
       child: Card(

@@ -46,7 +46,7 @@ class _contadorPassosState extends State<contadorPassos> {
   void onPedestrianStatusError(error) {
     print('onPedestrianStatusError: $error');
     setState(() {
-      _status = 'Estatus do pedestre não disponiveis';
+      _status = 'Pedestrian Status not available';
     });
     print(_status);
   }
@@ -54,7 +54,7 @@ class _contadorPassosState extends State<contadorPassos> {
   void onStepCountError(error) {
     print('onStepCountError: $error');
     setState(() {
-      _steps = 'Seu contador de passos não está disponivel';
+      _steps = 'Step Count not available';
     });
   }
 
@@ -150,9 +150,9 @@ class _contadorPassosState extends State<contadorPassos> {
                 style: TextStyle(fontSize: 30),
               ),
               Icon(
-                _status == 'Andando'
+                _status == 'walking'
                     ? Icons.directions_walk
-                    : _status == 'Parado'
+                    : _status == 'stopped'
                     ? Icons.accessibility_new
                     : Icons.error,
                 size: 100,
@@ -160,7 +160,7 @@ class _contadorPassosState extends State<contadorPassos> {
               Center(
                 child: Text(
                   _status,
-                  style: _status == 'Andando' || _status == 'Parado'
+                  style: _status == 'walking' || _status == 'stopped'
                       ? TextStyle(fontSize: 30)
                       : TextStyle(fontSize: 20, color: Colors.red),
                 ),

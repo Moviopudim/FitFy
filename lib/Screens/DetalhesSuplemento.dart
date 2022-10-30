@@ -36,7 +36,7 @@ class telaSuplemento extends StatelessWidget {
             ),
             title: NeumorphicText(
               rotulo,
-              style: const NeumorphicStyle(
+              style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
                 depth: 8,
                 color: Colors.white,
@@ -48,7 +48,7 @@ class telaSuplemento extends StatelessWidget {
             subtitle:
             NeumorphicText(
               subtitulo,
-              style: const NeumorphicStyle(
+              style:  NeumorphicStyle(
                 depth: 6,
                 color: Colors.white,
               ),
