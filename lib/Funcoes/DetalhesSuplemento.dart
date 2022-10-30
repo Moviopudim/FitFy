@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:getwidget/components/appbar/gf_appbar.dart';
 
 class telaSuplemento extends StatelessWidget {
   const telaSuplemento({Key? key,
@@ -16,49 +17,34 @@ class telaSuplemento extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NeumorphicAppBar(
+      appBar: GFAppBar(
         title: Text(titulo),
-        buttonStyle: NeumorphicStyle(depth: 3),
+        centerTitle: true,
       ),
-      body: Neumorphic(
-        style: NeumorphicStyle(
-            shape: NeumorphicShape.convex,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(24)),
-            depth: 8,
-            lightSource: LightSource.topLeft,
-        ),
-        child: Card(
+      body: Card(
           child: ListTile(
             leading: Image.network(
               imagem,
               width: 50,
               height: 150,
             ),
-            title: NeumorphicText(
+            title: Text(
               rotulo,
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                depth: 8,
+              style: const TextStyle(
                 color: Colors.white,
-              ),
-              textStyle: NeumorphicTextStyle(
                 fontSize: 32,
               ),
             ),
             subtitle:
-            NeumorphicText(
+            Text(
               subtitulo,
-              style:  NeumorphicStyle(
-                depth: 6,
+              style:  const TextStyle(
                 color: Colors.white,
-              ),
-              textStyle: NeumorphicTextStyle(
-                fontSize: 20, //customize size here
+                fontSize: 20,
               ),
             ),
           ),
         ),
-      ),
     );
   }
 }

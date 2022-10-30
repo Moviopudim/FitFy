@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:getwidget/components/appbar/gf_appbar.dart';
 import '../Funcoes/Cria o suplemento.dart';
-import '../Screens/DetalhesSuplemento.dart';
+import '../Funcoes/DetalhesSuplemento.dart';
 import '../main.dart';
 import 'Home.dart';
 import 'listaCapsulas.dart';
@@ -10,9 +11,9 @@ class listaSuplementos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: NeumorphicAppBar(
-          title: Text('Suplementos'),
-          buttonStyle: NeumorphicStyle(depth: 3),
+        appBar: GFAppBar(
+          title: Text("Home"),
+          centerTitle: true,
         ),
         drawer: Drawer(
           child: ListView(

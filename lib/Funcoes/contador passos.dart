@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
-import 'package:sang/main.dart';
+import 'package:Slang/main.dart';
 
 import '../Screens/Home.dart';
 import '../Screens/Lista de suplementos.dart';
@@ -75,9 +76,9 @@ class _contadorPassosState extends State<contadorPassos> {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: NeumorphicAppBar(
-          title: Text('Passos'),
-          buttonStyle: NeumorphicStyle(depth: 3),
+        appBar: GFAppBar(
+          title: Text("Home"),
+          centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},

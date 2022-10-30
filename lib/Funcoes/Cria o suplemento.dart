@@ -13,20 +13,12 @@ class criaSuplemento extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EdgeInsets margin;
-    return Neumorphic(
-      style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(2)),
-          depth: -8,
-          lightSource: LightSource.topLeft,
-          color: Colors.transparent
-      ),
-      child: Card(
+    return  Card(
         child: ListTile(
           leading: Image.network(imagem, width: 100),
           title: Text(
             rotulo,
-            style: TextStyle(fontSize: 32, fontFamily: 'Roboto'),
+            style: TextStyle(fontSize: 32),
           ),
           subtitle: Text(
             subtitulo,
@@ -38,7 +30,6 @@ class criaSuplemento extends StatelessWidget {
             }));
           },
         ),
-      ),
     );
   }
 }

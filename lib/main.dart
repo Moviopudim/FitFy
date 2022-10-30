@@ -1,6 +1,6 @@
-import './Screens/Lista de suplementos.dart';
-import 'package:sang/Screens/Home.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:Slang/Screens/Home.dart';
+import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 
 void main() {
   runApp(slang());
@@ -11,25 +11,13 @@ class slang extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicApp(
+    return MaterialApp(
       title: 'Home',
-      themeMode: ThemeMode.dark,
-      theme: NeumorphicThemeData(
-        baseColor: Colors.black12,
-        lightSource: LightSource.topLeft,
-        shadowDarkColor: Colors.black45,
-        depth: 6,
-      ),
-      darkTheme: NeumorphicThemeData(
-        baseColor: Color(0xFF3E3E3E),
-        lightSource: LightSource.topLeft,
-        depth: 6,
-      ),
+      theme: ThemeData.dark(),
       home: MyHomePage(),
     );
   }
 }
-
 
 class botaoHome extends StatelessWidget {
   final String texto;
@@ -40,22 +28,19 @@ class botaoHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicButton(
-        margin: EdgeInsets.only(top: 12),
-        onPressed: () {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return rota;
-          }));
-        },
-        style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
-        ),
-        padding: const EdgeInsets.all(12.0),
-        child: Text(
-          texto,
-          style: TextStyle(color: Colors.white),
-        ));
+    return GFButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return rota;
+        }));
+      },
+      text: texto,
+      textStyle: const TextStyle(
+        fontSize: 22
+      ),
+      size: GFSize.LARGE,
+      color: Colors.black54,
+      shape: GFButtonShape.pills,
+    );
   }
 }

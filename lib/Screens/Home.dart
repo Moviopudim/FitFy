@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:sang/main.dart';
+import 'package:Slang/main.dart';
 import '../Screens/Lista de suplementos.dart';
 import '../Funcoes/contador passos.dart';
 import 'listaCapsulas.dart';
+import 'package:getwidget/getwidget.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -11,9 +11,9 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NeumorphicAppBar(
-        title: Text('Home', style: TextStyle(fontSize: 28),),
-        buttonStyle: NeumorphicStyle(depth: 3),
+      appBar: GFAppBar(
+        title: Text("Home"),
+        centerTitle: true,
       ),
 
       body: Center(
