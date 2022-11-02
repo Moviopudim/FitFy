@@ -1,3 +1,4 @@
+import 'package:Slang/Screens/listaReceitas.dart';
 import 'package:flutter/material.dart';
 import 'package:Slang/main.dart';
 import '../Screens/Lista de suplementos.dart';
@@ -22,10 +23,11 @@ class MyHomePage extends StatelessWidget {
           child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            botaoHome('Passos', contadorPassos(), Size.fromHeight(36)),
+            botaoHome('Receitas', ListaReceita(), Size.fromHeight(36)),
+            botaoHome('Suas Informações', formulario(), Size.fromHeight(36)),
             botaoHome('Suplementos', listaSuplementos(), Size.fromHeight(36)),
             botaoHome('Capsulas', listaCapsulas(), Size.fromHeight(36)),
-            botaoHome('Passos', contadorPassos(), Size.fromHeight(36)),
-            botaoHome('Suas Informações', formulario(), Size.fromHeight(36)),
           ],
         ),
       ),
