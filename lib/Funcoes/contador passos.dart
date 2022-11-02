@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'dart:async';
 
@@ -77,7 +76,7 @@ class _contadorPassosState extends State<contadorPassos> {
       theme: ThemeData.dark(),
       home: Scaffold(
         appBar: GFAppBar(
-          title: Text("Home"),
+          title: Text("Passos"),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(

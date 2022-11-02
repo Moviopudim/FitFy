@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import '../Funcoes/DetalhesSuplemento.dart';
 import 'Home.dart';
@@ -12,7 +12,7 @@ class listaCapsulas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GFAppBar(
-          title: Text("Home"),
+          title: Text("Capsulas"),
           centerTitle: true,
         ),
         drawer: Drawer(
