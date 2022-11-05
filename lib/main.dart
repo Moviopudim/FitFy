@@ -19,28 +19,32 @@ class slang extends StatelessWidget {
   }
 }
 
-class botaoHome extends StatelessWidget {
-  final String texto;
+class cardHome extends StatelessWidget {
+  final String titulo;
+  final String subtitulo;
 
   final Widget rota;
 
-  botaoHome(this.texto, this.rota, Size size);
+  cardHome(this.titulo, this.rota, this.subtitulo);
 
   @override
   Widget build(BuildContext context) {
-    return GFButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return rota;
-        }));
-      },
-      text: texto,
-      textStyle: const TextStyle(
-        fontSize: 22
+    return Card(
+      child: ListTile(
+        title: Text(
+          titulo,
+          style: TextStyle(fontSize: 23),
+        ),
+        subtitle: Text(
+          subtitulo,
+          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 17),
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return rota;
+          }));
+        },
       ),
-      size: GFSize.LARGE,
-      color: Colors.black54,
-      shape: GFButtonShape.standard,
     );
   }
 }

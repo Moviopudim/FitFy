@@ -19,18 +19,20 @@ class MyHomePage extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: Center(
-          child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            botaoHome('Passos', contadorPassos(), Size.fromHeight(36)),
-            botaoHome('Receitas', ListaReceita(), Size.fromHeight(36)),
-            botaoHome('Suas Informações', formulario(), Size.fromHeight(36)),
-            botaoHome('Suplementos', listaSuplementos(), Size.fromHeight(36)),
-            botaoHome('Capsulas', listaCapsulas(), Size.fromHeight(36)),
-          ],
-        ),
-      ),
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 15,
+        crossAxisCount: 2,
+        children: <Widget>[
+          cardHome('Passos', contadorPassos(), 'A Função Que Contará Os Seus Passos Com Uma precisão inimaginavel'),
+          cardHome('CheckUp', formulario(), 'Se Descubra, Responda 3 Campos E Saiba Mais Sobre Você'),
+          cardHome('Receitas', ListaReceita(), 'Faça Receitas Simples E Saudaveis Em Até 5 Passos'),
+          cardHome('Suplementos', listaSuplementos(), 'Se Informe Sobre Suplementação A Qualquer Hora E Em Qualquer Lugar'),
+          cardHome('Capsulas', listaCapsulas(), 'Os Principais Suplementos Em forma De Capsula'),
+        ],
+      )
     );
   }
 }
