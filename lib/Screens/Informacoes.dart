@@ -17,6 +17,7 @@ class resultados extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GFAppBar(
+        backgroundColor: Colors.indigo,
         title: Text("Resultados"),
         centerTitle: true,
       ),

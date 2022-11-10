@@ -13,11 +13,14 @@ class slang extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Home',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        fontFamily: 'Raleway',
+      ),
       home: MyHomePage(),
     );
   }
 }
+
 
 class cardHome extends StatelessWidget {
   final String titulo;
@@ -30,14 +33,15 @@ class cardHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white54,
       child: ListTile(
         title: Text(
           titulo,
-          style: TextStyle(fontSize: 23),
+          style: TextStyle(fontSize: 20, color: Colors.black54),
         ),
         subtitle: Text(
           subtitulo,
-          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 17),
+          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16, color: Colors.black54),
         ),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {

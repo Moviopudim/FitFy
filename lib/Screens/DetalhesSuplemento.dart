@@ -20,6 +20,7 @@ class telaSuplemento extends StatelessWidget {
       appBar: GFAppBar(
         title: Text(titulo),
         centerTitle: true,
+        backgroundColor: Colors.indigo,
       ),
       body: Card(
           child: ListTile(

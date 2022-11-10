@@ -21,6 +21,7 @@ class _ListaReceitaState extends State<ListaReceita> {
     return Scaffold(
       appBar: GFAppBar(
         title: Text("Receitas"),
+        backgroundColor: Colors.indigo,
         centerTitle: true,
       ),
       body: ListView(

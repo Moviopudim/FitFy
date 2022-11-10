@@ -3,7 +3,6 @@ import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
-import 'package:Slang/main.dart';
 
 import '../Screens/Home.dart';
 import '../Screens/Lista de suplementos.dart';
@@ -73,15 +72,16 @@ class _contadorPassosState extends State<contadorPassos> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData(),
       home: Scaffold(
         appBar: GFAppBar(
           title: Text("Passos"),
           centerTitle: true,
+          backgroundColor: Colors.indigo,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.indigoAccent,
           child: const Icon(Icons.account_balance),
         ),
         drawer: Drawer(
@@ -90,7 +90,7 @@ class _contadorPassosState extends State<contadorPassos> {
             children: <Widget>[
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.black38,
+                  color: Colors.indigo,
                 ),
                 child: Text(
                   'Categorias',
@@ -101,7 +101,7 @@ class _contadorPassosState extends State<contadorPassos> {
                 ),
               ),
               ListTile(
-                  leading: Icon(Icons.home_filled),
+                  leading: Icon(Icons.home_filled, color: Colors.green),
                   title: Text('Home'),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -109,7 +109,7 @@ class _contadorPassosState extends State<contadorPassos> {
                     }));
                   }),
               ListTile(
-                  leading: Icon(Icons.ad_units_sharp),
+                  leading: Icon(Icons.ad_units_sharp, color: Colors.green),
                   title: Text('Capsulas'),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -117,7 +117,7 @@ class _contadorPassosState extends State<contadorPassos> {
                     }));
                   }),
               ListTile(
-                leading: Icon(Icons.ad_units),
+                leading: Icon(Icons.ad_units, color: Colors.green),
                 title: Text('Suplementos'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {

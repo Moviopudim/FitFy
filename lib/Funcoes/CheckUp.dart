@@ -20,6 +20,7 @@ class formulario extends StatelessWidget {
       appBar: GFAppBar(
         title: Text("Formulario"),
         centerTitle: true,
+        backgroundColor: Colors.indigo,
       ),
       body: Column(
         children: <Widget>[

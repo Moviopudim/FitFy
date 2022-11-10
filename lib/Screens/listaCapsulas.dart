@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
-import '../Funcoes/DetalhesSuplemento.dart';
+import 'DetalhesSuplemento.dart';
 import 'Home.dart';
 import '../Funcoes/Cria o suplemento.dart';
 import 'Lista de suplementos.dart';
@@ -14,6 +14,7 @@ class listaCapsulas extends StatelessWidget {
         appBar: GFAppBar(
           title: Text("Capsulas"),
           centerTitle: true,
+          backgroundColor: Colors.indigo,
         ),
         drawer: Drawer(
           child: ListView(
@@ -21,7 +22,7 @@ class listaCapsulas extends StatelessWidget {
             children: <Widget>[
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.black38,
+                  color: Colors.indigoAccent,
                 ),
                 child: Text(
                   'Categorias',
@@ -32,7 +33,7 @@ class listaCapsulas extends StatelessWidget {
                 ),
               ),
               ListTile(
-                  leading: Icon(Icons.home_filled),
+                  leading: Icon(Icons.home_filled, color: Colors.green,),
                   title: Text('Home'),
                   onTap: () {
                     Navigator.push(context,
@@ -41,7 +42,7 @@ class listaCapsulas extends StatelessWidget {
                     }));
                   }),
               ListTile(
-                leading: Icon(Icons.ad_units),
+                leading: Icon(Icons.ad_units, color: Colors.green),
                 title: Text('Suplementos'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
