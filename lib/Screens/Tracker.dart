@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
+import 'package:getwidget/components/button/gf_icon_button.dart';
+import 'package:getwidget/types/gf_button_type.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
@@ -15,13 +17,27 @@ class tracker extends StatefulWidget {
 
 class _trackerState extends State<tracker> {
   
-  List<_UserData> dataList = [];
-
+  List<UserData> dataList = [
+    UserData('1', 78),
+    UserData('2', 80),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GFAppBar(
+          actions: <Widget>[
+            GFIconButton(
+              icon: Icon(Icons.refresh_rounded),
+              color: Colors.indigo,
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => tracker()),
+                      (Route<dynamic> route) => false,
+              );
+            },)
+          ],
           title: Text("Progresso"),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -29,9 +45,14 @@ class _trackerState extends State<tracker> {
 
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+            final Future<dynamic> future = Navigator.push(context, MaterialPageRoute(builder: (context) {
               return recebeDados();
             }));
+
+           future.then((dados){
+              debugPrint('$dados');
+              dataList.add(dados);
+            });
           },
           backgroundColor: Colors.green,
           child: const Icon(Icons.add),
@@ -45,15 +66,14 @@ class _trackerState extends State<tracker> {
               title: ChartTitle(text: 'Seu Progresso'),
               legend: Legend(isVisible: true),
               tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<_UserData, String>>[
-                LineSeries<_UserData, String>(
+              series:[
+                LineSeries<UserData, String>(
                     dataSource: dataList,
-                    xValueMapper: (_UserData sales, _) => sales.date,
-                    yValueMapper: (_UserData sales, _) => sales.peso,
+                    xValueMapper: (UserData data, _) => data.date,
+                    yValueMapper: (UserData data, _) => data.peso,
                     name: 'Peso (KG)',
                     dataLabelSettings: DataLabelSettings(isVisible: true))
               ]),
-
         ]));
   }
 }
@@ -83,15 +103,20 @@ class recebeDados extends StatelessWidget {
         pergunta(controlador: controladorPeso, rotulo: 'Peso', dica: 'E.g: 70 kg'),
         pergunta(controlador: controladorDia, rotulo: 'Data', dica: 'E.g: 10/11'),
 
+
+
         OutlinedButton(onPressed:() {
-          final String data = controladorDia.text as String;
-          final double peso = controladorPeso.value as double;
 
+          final double? peso = double.tryParse(controladorPeso.text);
+          final String? dia = controladorDia.text;
 
-          debugPrint('Dia: $data');
-          debugPrint('Peso: $peso');
+          if (peso != null && dia != null) {
+            final dadosFinais =
+              UserData(dia, peso);
 
-        },
+            Navigator.pop(context, dadosFinais);
+          }
+    },
             style: style,
             child: Text('Confirmar'))
        ]
@@ -101,8 +126,8 @@ class recebeDados extends StatelessWidget {
 }
 
 
-class _UserData {
-  _UserData(this.date, this.peso);
+class UserData {
+  UserData(this.date, this.peso);
 
   final String date;
   final double peso;

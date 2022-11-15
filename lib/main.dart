@@ -14,7 +14,7 @@ class slang extends StatelessWidget {
     return MaterialApp(
       title: 'Home',
       theme: ThemeData(
-        fontFamily: 'Raleway',
+        fontFamily: 'Poppins',
       ),
       home: MyHomePage(),
     );
