@@ -4,7 +4,6 @@ import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../Funcoes/perguntaFormulario.dart';
-import 'Home.dart';
 
 class tracker extends StatefulWidget {
 
@@ -46,7 +45,7 @@ class _trackerState extends State<tracker> {
 
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final Future<dynamic> future = Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
               return recebeDados();
             })).then((dados){
               debugPrint('$dados');
@@ -85,9 +84,6 @@ class recebeDados extends StatefulWidget {
 
 final TextEditingController controladorPeso = TextEditingController();
 final TextEditingController controladorDia = TextEditingController();
-final double? peso = double.tryParse(controladorPeso.text);
-final String? dia = controladorDia.text;
-final dadosFinais = UserData(dia!, peso!);
 
 final ButtonStyle style = ElevatedButton.styleFrom(
     textStyle: const TextStyle(fontSize: 23), backgroundColor: Colors.transparent);
@@ -114,6 +110,11 @@ class _recebeDadosState extends State<recebeDados> {
 
 
               OutlinedButton(onPressed:() {
+                final double? peso = double.tryParse(controladorPeso.text);
+                final String? dia = controladorDia.text;
+
+
+                final dadosFinais = UserData(dia!, peso!);
                 Navigator.pop(context, dadosFinais);
               },
                   style: style,
@@ -123,13 +124,6 @@ class _recebeDadosState extends State<recebeDados> {
     );
   }
 }
-
-
-
-void refreshData() {
-  dataList.add(dadosFinais);
-}
-
 
 class UserData {
   UserData(this.date, this.peso);
