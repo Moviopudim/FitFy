@@ -8,9 +8,9 @@ import 'Tracker.dart';
 import 'listaCapsulas.dart';
 import 'package:getwidget/getwidget.dart';
 
-class MyHomePage extends StatelessWidget {
+class Home extends StatelessWidget {
 
-  MyHomePage({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

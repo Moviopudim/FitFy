@@ -16,7 +16,7 @@ class slang extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home: MyHomePage(),
+      home: Home(),
     );
   }
 }

@@ -38,7 +38,7 @@ class listaCapsulas extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return MyHomePage();
+                      return Home();
                     }));
                   }),
               ListTile(

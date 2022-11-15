@@ -37,7 +37,7 @@ class listaSuplementos extends StatelessWidget {
                 title: Text('Home'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return MyHomePage();
+                    return Home();
                   }));
                 },
               ),
