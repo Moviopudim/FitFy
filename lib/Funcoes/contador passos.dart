@@ -13,6 +13,8 @@ String formatDate(DateTime d) {
 }
 
 class contadorPassos extends StatefulWidget {
+  const contadorPassos({super.key});
+
   @override
   _contadorPassosState createState() => _contadorPassosState();
 }
@@ -83,50 +85,6 @@ class _contadorPassosState extends State<contadorPassos> {
           onPressed: () {},
           backgroundColor: Colors.indigoAccent,
           child: const Icon(Icons.account_balance),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.indigo,
-                ),
-                child: Text(
-                  'Categorias',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                  leading: Icon(Icons.home_filled, color: Colors.green),
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return Home();
-                    }));
-                  }),
-              ListTile(
-                  leading: Icon(Icons.ad_units_sharp, color: Colors.green),
-                  title: Text('Capsulas'),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const listaCapsulas();
-                    }));
-                  }),
-              ListTile(
-                leading: Icon(Icons.ad_units, color: Colors.green),
-                title: Text('Suplementos'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return listaSuplementos();
-                  }));
-                },
-              ),
-            ],
-          ),
         ),
         body: Center(
           child: Column(
