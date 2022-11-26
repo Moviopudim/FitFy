@@ -6,3 +6,12 @@ Color kblack = Color(0xFF000000);
 Color kbrown300 = Color(0xFF8D6E63);
 Color kbrown = Color(0xFF795548);
 Color kgrey = Color(0xFFC0C0C0);
+
+// Principais
+
+Color Kamber = Colors.amber;
+Color Kred = Colors.red;
+Color Kteal =  Colors.teal;
+Color Kcyan = Colors.cyan;
+
+// Principais

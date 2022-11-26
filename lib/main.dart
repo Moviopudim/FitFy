@@ -1,15 +1,12 @@
-import 'package:Slang/Screens/Home.dart';
+import 'package:Slang/Home/Home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Screens/OnBoard.dart';
-
+import 'Introdução/OnBoard.dart';
+import 'package:flutter/widgets.dart';
 int? IsViewed;
-void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
+
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   IsViewed = prefs.getInt('onBoard');
@@ -31,7 +28,7 @@ class _SlangState extends State<slang> {
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home:OnBoard(),
+      home: IsViewed != 0 ? OnBoard() : Home(),
     );
   }
 }

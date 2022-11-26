@@ -1,9 +1,10 @@
 import 'package:Slang/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../Funcoes/CheckUp.dart';
-import 'Tracker.dart';
-import 'listaReceitas.dart';
+import '/Perguntas/CheckUp.dart';
+import '../Tracker/Tracker.dart';
+import '/Receitas/listaReceitas.dart';
+import 'package:draggable_home/draggable_home.dart';
 
 class Home extends StatefulWidget {
   @override

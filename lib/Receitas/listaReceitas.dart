@@ -2,9 +2,9 @@ import 'package:Slang/Funcoes/criaReceita.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 
-import '../Funcoes/Receitas/Hamburguer.dart';
-import '../Funcoes/Receitas/mingau.dart';
-import '../Funcoes/Receitas/pizza.dart';
+import 'Hamburguer.dart';
+import 'mingau.dart';
+import 'pizza.dart';
 
 class ListaReceita extends StatefulWidget {
   const ListaReceita({super.key});

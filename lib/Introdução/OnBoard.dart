@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Constanst/colors.dart';
-import 'Home.dart';
+import '../Home/Home.dart';
 import 'OnboardModel.dart';
 
 class OnBoard extends StatefulWidget {
@@ -145,8 +145,8 @@ class _OnBoardState extends State<OnBoard> {
                             MaterialPageRoute(builder: (context) => Home()));
                       }
                       _pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.bounceIn,
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.ease,
                       );
                     },
                     child: Container(

@@ -23,11 +23,11 @@ class pergunta extends StatelessWidget {
               style: const TextStyle(fontSize: 19.0),
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
+                //isDense: true,
                 border: OutlineInputBorder(),
                 labelText: rotulo,
                 hintText: dica,
               )),
-
         )
       ],
     );

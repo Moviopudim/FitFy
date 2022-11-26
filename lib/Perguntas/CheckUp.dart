@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
 
-import '../Screens/Informacoes.dart';
-import 'perguntaFormulario.dart';
+import 'package:flutter/material.dart';
+import 'package:getwidget/components/appbar/gf_appbar.dart';
+
+import '../Perguntas/resultados.dart';
+import '../Funcoes/perguntaFormulario.dart';
 
 class formulario extends StatelessWidget {
   final ButtonStyle style = ElevatedButton.styleFrom(
