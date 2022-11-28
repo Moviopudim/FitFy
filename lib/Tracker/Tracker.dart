@@ -14,10 +14,31 @@ class tracker extends StatefulWidget {
   _trackerState createState() => _trackerState();
 }
 
-final Future<List> itens = SqliteService.getItems();
-final List dataList = [];
 
 class _trackerState extends State<tracker> {
+
+  final Future<List> itens = SqliteService.getItems();
+
+  late SqliteService _sqliteService;
+  late List dataList = [];
+
+  void RefreshData() async {
+    final data = await SqliteService.getItems();
+    setState(() {
+      dataList = data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this._sqliteService= SqliteService();
+    SqliteService.initializeDB().whenComplete(() async {
+      RefreshData();
+      setState(() {});
+    });
+  }
+
 
   final ButtonStyle style =
   ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),);
@@ -44,12 +65,7 @@ class _trackerState extends State<tracker> {
         ),
         actions: <Widget> [
           IconButton(onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => tracker()),
-                  (Route<dynamic> route) => false,
-            );
+            debugPrint('$dataList');
           }, icon: const Icon(Icons.refresh_rounded))
         ],
       ),
@@ -89,10 +105,9 @@ class _trackerState extends State<tracker> {
                           final UserData dadosFinais = UserData(dia, valor!, 0);
 
                           SqliteService.createItem(dadosFinais);
-                          dataList.add(dadosFinais);
 
-                          debugPrint('$dadosFinais');
-                          debugPrint('$dataList');
+                          debugPrint('itens: $itens');
+                          debugPrint('dataList: $dataList');
                           Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -137,7 +152,7 @@ class UserData {
 );
 
   UserData.fromMap(Map<String, dynamic> item):
-        id=item["id"], date= item["date"], valor= item["valor"];
+        id=item["id"], date= item["Date"], valor= item["Valor"];
 
   Map<String, Object> toMap(){
     return {'id':id,'date': date,'valor': valor};
