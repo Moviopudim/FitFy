@@ -101,20 +101,17 @@ class _trackerState extends State<tracker> {
                         color: Kamber,
                         onPressed: () async {
                           final double? valor = double.tryParse(controladorValor.text);
-                          final String dia = controladorDia.text;
-                          final UserData dadosFinais = UserData(dia, valor!, 0);
+                          final String? dia = controladorDia.text;
+                          final UserData dadosFinais = UserData(0, dia!, valor!);
 
                           SqliteService.createItem(dadosFinais);
 
                           debugPrint('itens: $itens');
                           debugPrint('dataList: $dataList');
+
+                          RefreshData();
+
                           Navigator.pop(context);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                              MaterialPageRoute(
-                                  builder: (context) => tracker()),
-                                  (Route<dynamic> route) => false,
-                            );
                         },
                         child: Text(
                           "Confirmar",
@@ -146,13 +143,13 @@ class UserData {
   final int id;
 
   UserData(
+      this.id,
       this.date,
-      this.valor,
-      this.id
+      this.valor
 );
 
   UserData.fromMap(Map<String, dynamic> item):
-        id=item["id"], date= item["Date"], valor= item["Valor"];
+        id=item["id"], date=item["date"], valor=item["valor"];
 
   Map<String, Object> toMap(){
     return {'id':id,'date': date,'valor': valor};
@@ -160,7 +157,7 @@ class UserData {
 
   @override
   String toString() {
-    return 'Tracker{ valor: $valor, data: $date}';
+    return 'UserData{ valor: $valor, data: $date , id: $id}';
   }
 }
 

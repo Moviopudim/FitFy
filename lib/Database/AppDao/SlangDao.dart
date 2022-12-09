@@ -6,15 +6,14 @@ class SqliteService{
   static const String databaseName = "tracker.db";
   static Database? db;
 
-
-  static Future<Database> initializeDB() async{
-    final databasePath = await getDatabasesPath();
-    final path = join(databasePath, databaseName);
+  static Future<Database> initializeDB() async {
+    final String DBpath = await getDatabasesPath();
+    final path = join(DBpath, databaseName);
     return db?? await openDatabase(
         path,
         version: 1,
         onCreate: (Database db, int version) async {
-          await createTables(db);
+          await db.execute(trackerTable);
         });
   }
 
@@ -25,9 +24,9 @@ class SqliteService{
   static const trackerTable = """
       CREATE TABLE IF NOT EXISTS tracker 
       (
-      Id TEXT NOT NULL,
-      date TEXT, 
-      valor TEXT
+      Id INTEGER PRIMARY KEY,
+      date INTEGER NOT NULL, 
+      valor DOUBLE NOT NULL,
       )
   """;
 
@@ -44,16 +43,5 @@ class SqliteService{
 
     final List<Map<String, Object?>> queryResult = await db.query('tracker');
     return queryResult.map((e) => UserData.fromMap(e)).toList();
-  }
-
-  static Future<Database> initDB() async {
-    final String DBpath = await getDatabasesPath();
-    final path = join(DBpath, databaseName);
-    return db?? await openDatabase(
-        path,
-        version: 1,
-        onCreate: (Database db, int version) async {
-          await db.execute(trackerTable);
-        });
   }
 }
