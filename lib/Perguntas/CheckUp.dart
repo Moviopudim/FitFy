@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 
+import '../Constanst/colors.dart';
 import '../Perguntas/resultados.dart';
 import '../Funcoes/perguntaFormulario.dart';
 
 class formulario extends StatelessWidget {
   final ButtonStyle style = ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.green);
+      textStyle: const TextStyle(fontSize: 20), backgroundColor: Kred);
 
   final TextEditingController _controladorPeso = TextEditingController();
   final TextEditingController _controladorAltura = TextEditingController();
@@ -18,10 +19,10 @@ class formulario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
+      appBar: AppBar(
         title: Text("Formulario"),
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Kred,
       ),
       body: Column(
         children: <Widget>[
@@ -53,16 +54,16 @@ class formulario extends StatelessWidget {
               final double passada = altura * 0.415;
               final num pesoMinimo = num.parse((((altura / 100) * (altura / 100)) * 18.5).toStringAsPrecision(4));
               final num pesoMaximo = num.parse((((altura / 100) * (altura / 100)) * 24.9).toStringAsPrecision(4));
+              final double Pi = (pesoMaximo + pesoMinimo) / 2;
 
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return resultados(
-                  resultadoAgua: agua.toString(),
-                  resultadoImc: imc.toString(),
-                  resultadoCreatina: creatina.toString(),
-                  resultadoProteina: proteina.toString(),
-                  resultadoPassada: passada.toString(),
-                  resultadoPiMinimo: pesoMinimo.toString(),
-                  resultadoPiMaximo: pesoMaximo.toString(),
+                  resultadoAgua: agua.toStringAsPrecision(4),
+                  resultadoImc: imc.toStringAsPrecision(3),
+                  resultadoCreatina: creatina.toStringAsPrecision(3),
+                  resultadoProteina: proteina.toStringAsPrecision(3),
+                  resultadoPassada: passada.toStringAsPrecision(3),
+                  resultadoPi: pesoMinimo.toStringAsPrecision(3),
                 );
               }));
 

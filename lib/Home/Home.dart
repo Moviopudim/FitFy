@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?';
-  int steps = 100;
+  int steps = 0;
 
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);

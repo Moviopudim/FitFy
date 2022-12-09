@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
+import '../Constanst/colors.dart';
+import 'infoCard.dart';
+
 class resultados extends StatelessWidget {
 
   final String resultadoAgua;
   final String resultadoCreatina;
   final String resultadoImc;
-  final String resultadoPiMinimo;
-  final String resultadoPiMaximo;
   final String resultadoPassada;
   final String resultadoProteina;
+  final String resultadoPi;
 
-  const resultados({Key? key, required this.resultadoAgua, required this.resultadoCreatina, required this.resultadoImc, required this.resultadoPiMinimo, required this.resultadoPiMaximo, required this.resultadoPassada, required this.resultadoProteina}) : super(key: key);
+  resultados({Key? key, required this.resultadoAgua, required this.resultadoCreatina, required this.resultadoImc, required this.resultadoPi, required this.resultadoPassada, required this.resultadoProteina}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GFAppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Kred,
         title: Text("Resultados"),
         centerTitle: true,
       ),
 
-      body: ListView(
+      body: GridView.count(
+        padding: const EdgeInsets.all(20),
+        crossAxisCount: 2,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 15,
+        primary: true,
         children: <Widget>[
           infoCard(
             rotulo: "Água",
@@ -46,7 +53,7 @@ class resultados extends StatelessWidget {
           ),
           infoCard(
             rotulo: "Peso Ideal",
-            subtitulo: "O seu peso ideal Minimo é: " + resultadoPiMinimo + "Kg " + " E o seu peso ideal Maximo: " + resultadoPiMaximo + "Kg",
+            subtitulo: "O seu peso ideal é: $resultadoPi",
             imagem: 'https://img.icons8.com/ios/344/weight-kg.png',
           ),
           infoCard(
@@ -56,32 +63,6 @@ class resultados extends StatelessWidget {
           ),
         ],
       )
-    );
-  }
-}
-
-class infoCard extends StatelessWidget {
-  final String rotulo;
-  final String subtitulo;
-  final String imagem;
-
-
-  infoCard({Key? key, required this.rotulo, required this.subtitulo, required this.imagem}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading:  Image.network(imagem, width: 100),
-        title: Text(
-          rotulo,
-          style: const TextStyle(fontSize: 32),
-        ),
-        subtitle: Text(
-          subtitulo,
-          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 23),
-        ),
-      ),
     );
   }
 }
