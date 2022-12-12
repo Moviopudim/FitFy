@@ -1,11 +1,13 @@
-import 'package:Slang/Database/AppDao/SlangDao.dart';
 import 'package:Slang/Funcoes/perguntaFormulario.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Constanst/colors.dart';
 import '../Home/Home.dart';
 import 'package:flutter/widgets.dart';
+
+import 'Tracker.dart';
 
 class tracker extends StatefulWidget {
   tracker({Key? key}) : super(key: key);
@@ -16,29 +18,7 @@ class tracker extends StatefulWidget {
 
 
 class _trackerState extends State<tracker> {
-
-  final Future<List> itens = SqliteService.getItems();
-
-  late SqliteService _sqliteService;
-  late List dataList = [];
-
-  void RefreshData() async {
-    final data = await SqliteService.getItems();
-    setState(() {
-      dataList = data;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this._sqliteService= SqliteService();
-    SqliteService.initializeDB().whenComplete(() async {
-      RefreshData();
-      setState(() {});
-    });
-  }
-
+  late List<UserData> dataList = [];
 
   final ButtonStyle style =
   ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),);
@@ -47,6 +27,12 @@ class _trackerState extends State<tracker> {
   final TextEditingController controladorDia = TextEditingController();
 
   @override
+
+  void insert(userData){
+    var box = Hive.box<UserData>('tracker');
+
+    dataList.add(userData);
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,12 +64,12 @@ class _trackerState extends State<tracker> {
               legend: Legend(isVisible: true),
               tooltipBehavior: TooltipBehavior(enable: true),
               series: [
-                LineSeries<dynamic, String>(
+                LineSeries<UserData, String>(
                     dataSource: dataList,
                     xValueMapper: (dynamic data, _) => data.date,
                     yValueMapper: (dynamic data, _) => data.valor,
                     name: 'Peso (KG)',
-                    dataLabelSettings: DataLabelSettings(isVisible: true))
+                    dataLabelSettings: const DataLabelSettings(isVisible: true))
               ]),
           TextButton(
             onPressed: () {
@@ -101,15 +87,13 @@ class _trackerState extends State<tracker> {
                         color: Kamber,
                         onPressed: () async {
                           final double? valor = double.tryParse(controladorValor.text);
-                          final String? dia = controladorDia.text;
-                          final UserData dadosFinais = UserData(0, dia!, valor!);
+                          final String dia = controladorDia.text;
+                          final UserData dadosFinais = UserData(dia, valor!);
 
-                          SqliteService.createItem(dadosFinais);
+                          print('Data List: $dataList');
+                          print(Hive.box('Tracker').get('UserBox'));
 
-                          debugPrint('itens: $itens');
-                          debugPrint('dataList: $dataList');
-
-                          RefreshData();
+                          Hive.box<UserData>('tracker').put('UserBox', dadosFinais);
 
                           Navigator.pop(context);
                         },
@@ -128,8 +112,8 @@ class _trackerState extends State<tracker> {
                       )
                     ]).show();
                  },
-            child: Text('Adicionar'),
             style: style,
+            child: const Text('Adicionar'),
           ),
         ],
       ),
@@ -137,27 +121,29 @@ class _trackerState extends State<tracker> {
   }
 }
 class UserData {
-
   final String date;
+
   final double valor;
-  final int id;
 
   UserData(
-      this.id,
       this.date,
       this.valor
 );
+}
 
-  UserData.fromMap(Map<String, dynamic> item):
-        id=item["id"], date=item["date"], valor=item["valor"];
+class UserAdapter extends TypeAdapter<UserData> {
+  @override
+  final typeId = 0;
 
-  Map<String, Object> toMap(){
-    return {'id':id,'date': date,'valor': valor};
+  @override
+  UserData read(BinaryReader reader) {
+    return UserData(reader.read(), reader.read());
   }
 
   @override
-  String toString() {
-    return 'UserData{ valor: $valor, data: $date , id: $id}';
+  void write(BinaryWriter writer, UserData obj) {
+    writer.write(obj.date);
+    writer.write(obj.valor);
   }
 }
 

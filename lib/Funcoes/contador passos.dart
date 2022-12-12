@@ -3,6 +3,8 @@ import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
+
+import '../Constanst/colors.dart';
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
@@ -50,7 +52,7 @@ class _contadorPassosState extends State<contadorPassos> {
   void onStepCountError(error) {
     print('onStepCountError: $error');
     setState(() {
-      _steps = 'Step Count not available';
+      _steps = 'Erro ao detectar seus passos';
     });
   }
 
@@ -71,15 +73,10 @@ class _contadorPassosState extends State<contadorPassos> {
     return MaterialApp(
       theme: ThemeData(),
       home: Scaffold(
-        appBar: GFAppBar(
+        appBar: AppBar(
           title: Text("Passos"),
           centerTitle: true,
-          backgroundColor: Colors.indigo,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.indigoAccent,
-          child: const Icon(Icons.account_balance),
+          backgroundColor: Kteal,
         ),
         body: Center(
           child: Column(
@@ -91,33 +88,13 @@ class _contadorPassosState extends State<contadorPassos> {
               ),
               Text(
                 _steps,
-                style: TextStyle(fontSize: 60),
+                style: const TextStyle(fontSize: 60),
               ),
               const Divider(
                 height: 100,
                 thickness: 0,
                 color: Colors.white,
               ),
-              const Text(
-                'Estado Atual:',
-                style: TextStyle(fontSize: 30),
-              ),
-              Icon(
-                _status == 'walking'
-                    ? Icons.directions_walk
-                    : _status == 'stopped'
-                    ? Icons.accessibility_new
-                    : Icons.error,
-                size: 100,
-              ),
-              Center(
-                child: Text(
-                  _status,
-                  style: _status == 'walking' || _status == 'stopped'
-                      ? TextStyle(fontSize: 30)
-                      : TextStyle(fontSize: 20, color: Colors.red),
-                ),
-              )
             ],
           ),
         ),

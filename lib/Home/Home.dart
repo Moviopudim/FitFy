@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
         child:   CircularPercentIndicator(
           radius: 120.0,
           lineWidth: 13.0,
-          animation: true,
+          animation: false,
           percent: steps >= 6000 ? 1.0 : percentage,
           center: Text(
             (percentage * 100).toStringAsPrecision(3),
@@ -166,11 +166,11 @@ class _HomeState extends State<Home> {
             TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
           ),
           footer: Text(
-            steps.toString(),
+           'passos: $steps',
             style:
             TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
           ),
-          circularStrokeCap: CircularStrokeCap.round,
+          circularStrokeCap: CircularStrokeCap.butt,
           progressColor: Colors.green,
         ),
       ),

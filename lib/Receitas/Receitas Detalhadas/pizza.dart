@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 
-class Mingau extends StatefulWidget {
-  const Mingau({super.key});
+import '../../Constanst/colors.dart';
+
+class Pizza extends StatefulWidget {
+  const Pizza({super.key});
 
   @override
-  State<Mingau> createState() => _MingauState();
+  State<Pizza> createState() => _PizzaState();
 }
 
-class _MingauState extends State<Mingau> {
+class _PizzaState extends State<Pizza> {
   int _index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GFAppBar(
-        title: Text("Mingau Proteico"),
+        title: Text("Pizza De Frango"),
         centerTitle: true,
+        backgroundColor: Kcyan,
       ),
       body:
       ListView(
@@ -47,33 +50,34 @@ class _MingauState extends State<Mingau> {
               content: Container(
                   alignment: Alignment.centerLeft,
                   child: const Text('''
-  150 ml de água
-  20g de whey protein
-  1 colher (sopa) de cacau em pó
-  3 colheres (sopa) de farelo de aveia
-  1/2 banana amassada''')),
+  4 fatias de pão de integral
+  50 gramas de queijo minas em fatias ou ralado
+  200 gramas de peito de frango cozido e desfiado
+  molho de tomate caseiro
+  tomate em rodelas a gosto
+  orégano e manjericão a gosto ''')),
             ),
             const Step(
               title: Text('Passo 2'),
-              content: Text('Em uma vasilha, acrescente o farelo de aveia e 50 ml de água filtrada. Cubra com um pano e deixe descansar por 10 minutos.'),
+              content: Text('Forre uma assadeira com as fatias de pão integral.'),
             ),
             Step(
               title: const Text('Passo 3'),
               content: Container(
                   alignment: Alignment.centerLeft,
-                  child: const Text('Depois que a aveia estiver hidratada, transfira para um panela e adicione o restante da água. Leve ao fogo baixo e comece a mexer bem.')),
+                  child: const Text('Cubra com molho de tomate. Depois, adicione o frango desfiado.')),
             ),
             Step(
               title: const Text('Passo 4'),
               content: Container(
                   alignment: Alignment.centerLeft,
-                  child: const Text('Acrescente uma dose de whey protein e misture bem até dissolver. Adicione o cacau em pó e misture novamente.')),
+                  child: const Text('Adicione o queijo minas e as rodelas de tomate.')),
             ),
             Step(
               title: const Text('Passo 5'),
               content: Container(
                   alignment: Alignment.centerLeft,
-                  child: const Text('Por fim, acrescente a banana amassada e misture bem. Agora basta servir')),
+                  child: const Text('Salpique o orégano e o manjericão e leve ao forno até que o queijo derreta.')),
             ),
           ],
         ),],

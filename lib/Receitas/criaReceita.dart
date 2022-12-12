@@ -15,14 +15,13 @@ class criaSuplemento extends StatelessWidget {
     EdgeInsets margin;
     return  Card(
       child: ListTile(
-        leading: Image.network(imagem, width: 100),
         title: Text(
           rotulo,
-          style: TextStyle(fontSize: 32),
+          style: TextStyle(fontSize: 18),
         ),
         subtitle: Text(
           subtitulo,
-          style: TextStyle(fontStyle: FontStyle.italic),
+          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
         ),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {

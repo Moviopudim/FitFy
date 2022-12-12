@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 
+import '../../Constanst/colors.dart';
+
 class Hamburguer extends StatefulWidget {
   const Hamburguer({super.key});
 
@@ -17,6 +19,7 @@ class _HamburguerState extends State<Hamburguer> {
       appBar: GFAppBar(
         title: Text("Hamburguer De Grão De Bico"),
         centerTitle: true,
+        backgroundColor: Kcyan,
       ),
       body:
       ListView(
