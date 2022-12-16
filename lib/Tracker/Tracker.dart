@@ -1,6 +1,5 @@
 import 'package:Slang/Funcoes/perguntaFormulario.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Constanst/colors.dart';
@@ -27,12 +26,6 @@ class _trackerState extends State<tracker> {
   final TextEditingController controladorDia = TextEditingController();
 
   @override
-
-  void insert(userData){
-    var box = Hive.box<UserData>('tracker');
-
-    dataList.add(userData);
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,9 +84,6 @@ class _trackerState extends State<tracker> {
                           final UserData dadosFinais = UserData(dia, valor!);
 
                           print('Data List: $dataList');
-                          print(Hive.box('Tracker').get('UserBox'));
-
-                          Hive.box<UserData>('tracker').put('UserBox', dadosFinais);
 
                           Navigator.pop(context);
                         },
@@ -130,20 +120,3 @@ class UserData {
       this.valor
 );
 }
-
-class UserAdapter extends TypeAdapter<UserData> {
-  @override
-  final typeId = 0;
-
-  @override
-  UserData read(BinaryReader reader) {
-    return UserData(reader.read(), reader.read());
-  }
-
-  @override
-  void write(BinaryWriter writer, UserData obj) {
-    writer.write(obj.date);
-    writer.write(obj.valor);
-  }
-}
-

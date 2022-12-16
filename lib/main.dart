@@ -1,22 +1,20 @@
 import 'package:Slang/Home/Home.dart';
-import 'package:Slang/Tracker/Tracker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Introdução/OnBoard.dart';
 import 'package:flutter/widgets.dart';
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:home_widget/home_widget.dart';
+import 'package:workmanager/workmanager.dart';
 
 int? IsViewed;
 
- void main() async {
-   Hive.registerAdapter(UserAdapter());
-   await Hive.initFlutter();
-   await Hive.openBox<UserData>('tracker');
-
-   Hive.openBox('tracker');
-
+void main() async {
    WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,14 +32,17 @@ class slang extends StatefulWidget {
 
 class _SlangState extends State<slang> {
   @override
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Home',
       theme: ThemeData(
         fontFamily: 'Poppins',
       ),
-      home: IsViewed != 0 ? Home() : OnBoard(),
+      home: IsViewed != 0 ? OnBoard() : Home(),
     );
   }
 }
+
 

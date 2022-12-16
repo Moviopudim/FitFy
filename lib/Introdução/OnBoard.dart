@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import '../Constanst/colors.dart';
 import '../Home/Home.dart';
 import 'OnboardModel.dart';
@@ -140,9 +141,15 @@ class _OnBoardState extends State<OnBoard> {
                     onTap: () async {
                       print(index);
                       if (index == screens.length - 1) {
-                        await _storeOnboardInfo();
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => Home()));
+
+                        var status = await Permission.activityRecognition.request();
+
+                        if (status.isGranted ){
+                          await _storeOnboardInfo();
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+
+                        }
                       }
                       _pageController.nextPage(
                         duration: Duration(milliseconds: 200),
