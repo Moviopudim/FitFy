@@ -4,13 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Introdução/OnBoard.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:async';
-import 'dart:io';
-import 'dart:math';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:home_widget/home_widget.dart';
-import 'package:workmanager/workmanager.dart';
 
 int? IsViewed;
 

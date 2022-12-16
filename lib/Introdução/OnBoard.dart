@@ -142,9 +142,10 @@ class _OnBoardState extends State<OnBoard> {
                       print(index);
                       if (index == screens.length - 1) {
 
-                        var status = await Permission.activityRecognition.request();
+                        var activityPermission = await Permission.activityRecognition.request();
+                        var mediaPermission = await Permission.mediaLibrary.request();
 
-                        if (status.isGranted ){
+                        if (activityPermission.isGranted && mediaPermission.isGranted){
                           await _storeOnboardInfo();
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => Home()));
