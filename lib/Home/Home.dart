@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
-import 'package:Slang/Funcoes/contador%20passos.dart';
+import 'package:health/health.dart';
+import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../Config/settings.dart';
 import '/Perguntas/CheckUp.dart';
 import '../Tracker/Tracker.dart';
 import '/Receitas/listaReceitas.dart';
@@ -20,7 +20,6 @@ class _HomeState extends State<Home> {
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?';
   int steps = 0;
-
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double percentage = 0;
@@ -107,6 +106,16 @@ class _HomeState extends State<Home> {
     );
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return settings();
+          }));
+        },
+        backgroundColor: Colors.amber,
+        foregroundColor: Colors.black,
+        child: const Icon(Icons.settings, color: Colors.white,),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -115,6 +124,7 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 16),
               SizedBox(
                 height: 280,
+                width: 500,
                 child: PageView.builder(
                   controller: controller,
                   itemBuilder: (_, index) {
@@ -147,16 +157,16 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 32.0),
+              const SizedBox(height:  2.0),
         ContainerPlus(
         margin: const EdgeInsets.only(top: 48),
-        width: 300,
-        height: 300,
+        width: 370,
+        height: 350,
         color: Colors.teal,
         radius: RadiusPlus.only(topLeft: 40, bottomRight: 40),
         onTap: () {},
         child:   CircularPercentIndicator(
-          radius: 120.0,
+          radius: 160.0,
           lineWidth: 13.0,
           animation: false,
           percent: steps >= 6000 ? 1.0 : percentage,
@@ -173,8 +183,7 @@ class _HomeState extends State<Home> {
           circularStrokeCap: CircularStrokeCap.butt,
           progressColor: Colors.green,
         ),
-      ),
-              const SizedBox(height: 10.0),
+      ), const SizedBox(height: 32.0),
             ],
           ),
         ),

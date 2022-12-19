@@ -1,4 +1,4 @@
-import 'package:Slang/Home/Home.dart';
+import 'package:Vitality/Home/Home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +29,8 @@ class _SlangState extends State<slang> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
         fontFamily: 'Poppins',

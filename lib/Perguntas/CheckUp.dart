@@ -63,7 +63,7 @@ class formulario extends StatelessWidget {
                   resultadoCreatina: creatina.toStringAsPrecision(3),
                   resultadoProteina: proteina.toStringAsPrecision(3),
                   resultadoPassada: passada.toStringAsPrecision(3),
-                  resultadoPi: pesoMinimo.toStringAsPrecision(3),
+                  resultadoPi: Pi.toStringAsPrecision(3),
                 );
               }));
 

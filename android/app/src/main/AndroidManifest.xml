@@ -2,7 +2,7 @@
           xmlns:tools="http://schemas.android.com/tools" package="com.example.sang">
    <application
 
-        android:label="Slang"
+        android:label="Vitality"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

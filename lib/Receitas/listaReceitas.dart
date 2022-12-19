@@ -1,4 +1,4 @@
-import 'package:Slang/Receitas/criaReceita.dart';
+import 'package:Vitality/Receitas/criaReceita.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 

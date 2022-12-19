@@ -1,4 +1,4 @@
-import 'package:Slang/Funcoes/perguntaFormulario.dart';
+import 'package:Vitality/Funcoes/perguntaFormulario.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
