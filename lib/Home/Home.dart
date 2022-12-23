@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../Config/settings.dart';
+import '../agua/agua.dart';
 import '/Perguntas/CheckUp.dart';
 import '../Tracker/Tracker.dart';
-import '/Receitas/listaReceitas.dart';
 import 'package:flutter_plus/flutter_plus.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -203,13 +203,13 @@ const telas = [
   'Tracker',
   'CheckUp',
   'Passos',
-  'Receitas'
+  'Água'
 ];
 
 List<dynamic> rotas = [
   tracker(),
   formulario(),
   contadorPassos(),
-  ListaReceita(),
+  agua(),
 ];
 

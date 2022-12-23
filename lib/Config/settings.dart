@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class settings extends StatefulWidget {
   const settings({Key? key}) : super(key: key);
@@ -9,16 +10,27 @@ class settings extends StatefulWidget {
 
 class _settingsState extends State<settings> {
   bool dark = false;
+  List<int> MetaPassos = <int>[6000, 7000, 8000, 9000, 10000];
 
-  List<int> list = <int>[6000, 7000, 8000, 9000, 10000];
+  late String idade;
+
+
+  @override
+  void initState(){
+    var box = Hive.box<String>('UserDataBox');
+
+    setState(() {
+      idade = box.get('idade');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    int meta = list.first;
+    int meta = MetaPassos.first;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Progresso"),
+        title: const Text("Configurações"),
         centerTitle: true,
         backgroundColor: Colors.amber,
       ),
@@ -26,16 +38,16 @@ class _settingsState extends State<settings> {
         padding: const EdgeInsets.all(13.0),
         child: ListView(
           children: <Widget>[
-            const Card(
+             Card(
               child: ListTile(
                 title: Text(
-                  'Idade: ',
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 32),
+                  'Idade: $idade',
+                  style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 32),
                 ),
-                subtitle: Text('Idade do usuario',
+                subtitle: const Text('Idade do usuario',
                     style:
                         TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
-                leading: Icon(
+                leading: const Icon(
                   Icons.numbers_outlined,
                   size: 50,
                 ),
@@ -78,7 +90,7 @@ class _settingsState extends State<settings> {
               subtitle: const Text('Defina a sua meta de passos',
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
               trailing: DropdownButton<int>(
-                items: list.map<DropdownMenuItem<int>>((int value) {
+                items: MetaPassos.map<DropdownMenuItem<int>>((int value) {
                   return DropdownMenuItem<int>(
                     value: value,
                     child: Text(value.toString()),

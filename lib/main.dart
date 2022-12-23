@@ -1,6 +1,8 @@
 import 'package:Vitality/Home/Home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Introdução/OnBoard.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +10,9 @@ import 'package:flutter/widgets.dart';
 int? IsViewed;
 
 void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>('UserDataBox');
+
    WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
