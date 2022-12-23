@@ -1,4 +1,3 @@
-import 'package:health/health.dart';
 import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';

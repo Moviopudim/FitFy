@@ -1,4 +1,5 @@
 import 'package:Vitality/Home/Home.dart';
+import 'package:Vitality/Tracker/Tracker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -11,24 +12,26 @@ int? IsViewed;
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter<UserData>(UserAdapter());
   await Hive.openBox<String>('UserDataBox');
+  await Hive.openBox<List<UserData>>('TrackerBox');
 
    WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   IsViewed = prefs.getInt('onBoard');
 
-  runApp(slang());
+  runApp(Vitality());
 }
 
-class slang extends StatefulWidget {
-  const slang({Key? key}) : super(key: key);
+class Vitality extends StatefulWidget {
+  const Vitality({Key? key}) : super(key: key);
 
   @override
-  State<slang> createState() => _SlangState();
+  State<Vitality> createState() => _SlangState();
 }
 
-class _SlangState extends State<slang> {
+class _SlangState extends State<Vitality> {
   @override
 
 
@@ -38,7 +41,7 @@ class _SlangState extends State<slang> {
       themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
-        fontFamily: 'Poppins',
+        fontFamily: 'Raleway',
       ),
       home: IsViewed != 0 ? OnBoard() : Home(),
     );

@@ -13,6 +13,9 @@ class _settingsState extends State<settings> {
   List<int> MetaPassos = <int>[6000, 7000, 8000, 9000, 10000];
 
   late String idade;
+  late String altura;
+  late String peso;
+
 
 
   @override
@@ -21,6 +24,8 @@ class _settingsState extends State<settings> {
 
     setState(() {
       idade = box.get('idade');
+      altura = box.get('altura');
+      peso = box.get('peso');
     });
   }
 
@@ -49,6 +54,34 @@ class _settingsState extends State<settings> {
                         TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
                 leading: const Icon(
                   Icons.numbers_outlined,
+                  size: 50,
+                ),
+              ),
+            ),Card(
+              child: ListTile(
+                title: Text(
+                  'Peso: $peso',
+                  style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 32),
+                ),
+                subtitle: const Text('peso do usuario',
+                    style:
+                    TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                leading: const Icon(
+                  Icons.monitor_weight,
+                  size: 50,
+                ),
+              ),
+            ),Card(
+              child: ListTile(
+                title: Text(
+                  'Altura: $altura',
+                  style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 32),
+                ),
+                subtitle: const Text('Altura do usuario',
+                    style:
+                    TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                leading: const Icon(
+                  Icons.height,
                   size: 50,
                 ),
               ),
