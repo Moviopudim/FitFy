@@ -1,7 +1,5 @@
 import 'package:Vitality/Receitas/criaReceita.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/appbar/gf_appbar.dart';
-
 import '../Constanst/colors.dart';
 import 'Receitas Detalhadas/Hamburguer.dart';
 import 'Receitas Detalhadas/mingau.dart';
@@ -20,7 +18,7 @@ class _ListaReceitaState extends State<ListaReceita> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
+      appBar: AppBar(
         title: Text("Receitas"),
         backgroundColor: Kcyan,
         centerTitle: true,

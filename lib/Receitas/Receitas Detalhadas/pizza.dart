@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/appbar/gf_appbar.dart';
+
 
 import '../../Constanst/colors.dart';
 
@@ -16,7 +16,7 @@ class _PizzaState extends State<Pizza> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
+      appBar: AppBar(
         title: Text("Pizza De Frango"),
         centerTitle: true,
         backgroundColor: Kcyan,

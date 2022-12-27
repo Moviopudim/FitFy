@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/appbar/gf_appbar.dart';
+
 
 import '../../Constanst/colors.dart';
 
@@ -16,7 +16,7 @@ class _MingauState extends State<Mingau> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
+      appBar: AppBar(
         title: Text("Mingau Proteico"),
         centerTitle: true,
         backgroundColor: Kcyan,

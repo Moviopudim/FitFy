@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                  borderRadius: BorderRadius.circular(16),
                  color: colors[index],
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
           child: SizedBox(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,

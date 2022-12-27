@@ -12,9 +12,9 @@ class _settingsState extends State<settings> {
   bool dark = false;
   List<int> MetaPassos = <int>[6000, 7000, 8000, 9000, 10000];
 
-  late String idade;
-  late String altura;
-  late String peso;
+  late String? idade;
+  late String? altura;
+  late String? peso;
 
 
 

@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Introdução/OnBoard.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 int? IsViewed;
 
@@ -41,7 +42,7 @@ class _SlangState extends State<Vitality> {
       themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
-        fontFamily: 'Raleway',
+       textTheme: GoogleFonts.chivoTextTheme(),
       ),
       home: IsViewed != 0 ? OnBoard() : Home(),
     );

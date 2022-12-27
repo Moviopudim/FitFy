@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/appbar/gf_appbar.dart';
+
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';

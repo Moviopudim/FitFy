@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
-
 import '../Constanst/colors.dart';
 import 'infoCard.dart';
 
@@ -18,7 +16,7 @@ class resultados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
+      appBar: AppBar(
         backgroundColor: Kred,
         title: Text("Resultados"),
         centerTitle: true,

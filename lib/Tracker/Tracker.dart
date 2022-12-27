@@ -80,7 +80,7 @@ class _trackerState extends State<tracker> {
               tooltipBehavior: TooltipBehavior(enable: true),
               series: [
                 LineSeries<UserData, String>(
-                    dataSource: box.get('tracker'),
+                    dataSource: box.get('tracker')!,
                     xValueMapper: (dynamic data, _) => data.date,
                     yValueMapper: (dynamic data, _) => data.valor,
                     name: 'Peso (KG)',
