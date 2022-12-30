@@ -14,6 +14,10 @@ class agua extends StatefulWidget {
 class _aguaState extends State<agua> {
   double marginHorizontal = 16.0;
   late int add = 0;
+  late int consumido = 2300;
+  late int meta = 2200;
+  late double percentage = 1.0 - (consumido / meta);
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class _aguaState extends State<agua> {
         backgroundColor: Colors.deepOrangeAccent,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: ListView(
@@ -56,7 +61,7 @@ class _aguaState extends State<agua> {
                             5000,
                           ],
                           heightPercentages: [
-                            0.5,
+                            percentage,
                           ],
                         ),
                         backgroundColor: Colors.deepOrangeAccent,
@@ -66,13 +71,37 @@ class _aguaState extends State<agua> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 38),
+                const SizedBox(height: 20),
+                Container(
+                  height: 62,
+                  width: 32,
+                  child: Row(
+                    children: <Widget>[
+                      const SizedBox(width: 152),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            print(percentage);
+                            add = 0;
+                          });
+                        },
+                        child: const Text(
+                          'Adicionar',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontSize: 22,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 Container(
                   height: 32,
                   width: 32,
                   child: Row(
                     children: <Widget>[
-                      const SizedBox(width: 130),
+                      const SizedBox(width: 137),
                       IconButton(
                           onPressed: () {
                             setState(() {

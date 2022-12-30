@@ -10,6 +10,8 @@ import 'package:flutter_plus/flutter_plus.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -23,20 +25,18 @@ class _HomeState extends State<Home> {
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double percentage = 0;
 
-
-
   void initState() {
     super.initState();
     initPlatformState();
     setState(() {
-    percentage = (steps / 6000);
+      percentage = (steps / 6000);
     });
   }
 
   void onStepCount(StepCount event) {
     print(event);
     setState(() {
-      steps = event.steps ;
+      steps = event.steps;
       percentage = (steps / 6000);
     });
   }
@@ -77,112 +77,96 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-    final pages = List.generate(
-        4,
-            (index) => Container(
-              decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(16),
-                 color: colors[index],
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-          child: SizedBox(
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return rotas[index];
-                }));
-              },
-              child: Center(
-                  child: Text(
-                    telas[index],
-                    style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                  )),
-            ),
-          )
-        ),
-    );
-
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return settings();
-          }));
-        },
-        backgroundColor: Colors.amber,
-        foregroundColor: Colors.black,
-        child: const Icon(Icons.settings, color: Colors.white,),
-      ),
+      backgroundColor: const Color.fromRGBO(244, 243, 243, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 280,
-                width: 500,
-                child: PageView.builder(
-                  controller: controller,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
               Container(
-                child: SmoothPageIndicator(
-                  controller: controller,
-                  count: pages.length,
-                  effect: CustomizableEffect(
-                    activeDotDecoration: DotDecoration(
-                      width: 32,
-                      height: 12,
-                      color: Colors.indigo,
-                      rotationAngle: 360,
-                      verticalOffset: -13,
-                      borderRadius: BorderRadius.circular(60),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(30))),
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    Text(
+                      'Seja a Sua',
+                      style: TextStyle(color: Colors.black87, fontSize: 25),
                     ),
-                    dotDecoration: DotDecoration(
-                      width: 24,
-                      height: 12,
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(16),
-                      verticalOffset: 5,
+                    SizedBox(
+                      height: 5,
                     ),
-                    spacing: 10.0,
-                    inActiveColorOverride: (i) => colors[i],
-                  ),
+                    Text(
+                      'Inspiração!',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height:  2.0),
-        ContainerPlus(
-        margin: const EdgeInsets.only(top: 48),
-        width: 370,
-        height: 350,
-        color: Colors.teal,
-        radius: RadiusPlus.only(topLeft: 40, bottomRight: 40),
-        onTap: () {},
-        child:   CircularPercentIndicator(
-          radius: 160.0,
-          lineWidth: 13.0,
-          animation: false,
-          percent: steps >= 6000 ? 1.0 : percentage,
-          center: Text(
-            (percentage * 100).toStringAsPrecision(3),
-            style:
-            TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-          ),
-          footer: Text(
-           'passos: $steps',
-            style:
-            TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
-          ),
-          circularStrokeCap: CircularStrokeCap.butt,
-          progressColor: Colors.green,
-        ),
-      ), const SizedBox(height: 32.0),
+              const SizedBox(height: 10.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Seu Progresso',
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      height: 200,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          //Progresso
+                          progresso('Passos',percentage, context),
+                          progresso('Água', 0.5, context),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.black54
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              'Best Design',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -191,24 +175,64 @@ class _HomeState extends State<Home> {
   }
 }
 
-const colors = [
-  Colors.amber,
-  Colors.red,
-  Colors.teal,
-  Colors.cyan,
-];
+Widget Rotas(rota, context) {
+  return AspectRatio(
+    aspectRatio: 2.62 / 3,
+    child: Container(
+      margin: const EdgeInsets.only(right: 15.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+                begin: Alignment.bottomRight,
+                stops: const [
+                  0.1,
+                  0.9
+                ],
+                colors: [
+                  Colors.white.withOpacity(.8),
+                  Colors.black54.withOpacity(.1)
+                ])),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) {
+              return rota;
+            }));
+          },
+        ),
+      ),
+    ),
+  );
+}
 
-const telas = [
-  'Tracker',
-  'CheckUp',
-  'Passos',
-  'Água'
-];
-
-List<dynamic> rotas = [
-  tracker(),
-  formulario(),
-  contadorPassos(),
-  agua(),
-];
-
+Widget progresso(texto, porcentagem, context) {
+  return AspectRatio(
+    aspectRatio: 2.78 / 3,
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          color: Colors.black54
+          ),
+        child: CircularPercentIndicator(
+          radius: 60.0,
+          lineWidth: 13.0,
+          animation: false,
+          percent: porcentagem,
+          center: Text(texto, style: TextStyle(color: Colors.white, fontSize: 25)),
+          circularStrokeCap: CircularStrokeCap.round,
+          progressColor: Colors.white70,
+        ),
+      ),
+    ),
+  );
+}
