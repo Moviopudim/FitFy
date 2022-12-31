@@ -1,5 +1,4 @@
 import 'package:Vitality/Home/Home.dart';
-import 'package:Vitality/Tracker/Tracker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -13,9 +12,9 @@ int? IsViewed;
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter<UserData>(UserAdapter());
   await Hive.openBox<String>('UserDataBox');
-  await Hive.openBox<List<UserData>>('TrackerBox');
+  await Hive.openBox<double>('DoubleBox');
+  await Hive.openBox<int>('IntBox');
 
    WidgetsFlutterBinding.ensureInitialized();
 
@@ -42,7 +41,7 @@ class _SlangState extends State<Vitality> {
       themeMode: ThemeMode.dark,
       title: 'Home',
       theme: ThemeData(
-       textTheme: GoogleFonts.poppinsTextTheme(),
+       textTheme: GoogleFonts.merriweatherTextTheme(),
       ),
       home: IsViewed != 0 ? OnBoard() : Home(),
     );

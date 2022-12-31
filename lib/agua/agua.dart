@@ -1,131 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-final String repoURL = 'https://github.com/glorylab/wave';
+import '../Home/Home.dart';
 
 class agua extends StatefulWidget {
   const agua({Key? key}) : super(key: key);
 
   @override
-  _aguaState createState() => _aguaState();
+  State<agua> createState() => _aguaState();
 }
 
 class _aguaState extends State<agua> {
-  double marginHorizontal = 16.0;
-  late int add = 0;
-  late int consumido = 2300;
-  late int meta = 2200;
-  late double percentage = 1.0 - (consumido / meta);
+  final ButtonStyle style =  ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(5)),
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.black54),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+          )
+      )
+  );
 
+  late int add = 0;
+  late int consumido = 0;
+  late int meta = 2200;
+  late double percentage = 1;
+
+  @override
+  void initState(){
+    var DoubleBox =  Hive.box<double>("DoubleBox");
+    var IntBox =  Hive.box<int>("IntBox");
+
+    setState(() {
+      percentage = DoubleBox.get("porcentagem", defaultValue: 1.0)!;
+      consumido = IntBox.get("consumido", defaultValue: 0)!;
+    });
+  }
+
+  void change(){
+    var DoubleBox =  Hive.box<double>("DoubleBox");
+    var IntBox =  Hive.box<int>("IntBox");
+
+    consumido += add;
+
+    if(consumido <= -1){
+      consumido = 0;
+    }
+
+    print('add:$add');
+    setState(() {
+      percentage = 1.0 - (consumido / meta);
+    });
+
+    DoubleBox.put('porcentagem', percentage);
+    IntBox.put('consumido', consumido);
+  }
 
   @override
   Widget build(BuildContext context) {
-    marginHorizontal = 16.0 +
-        (MediaQuery.of(context).size.width > 512
-            ? (MediaQuery.of(context).size.width - 512) / 2
-            : 0);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Água"),
-        centerTitle: true,
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_sharp,
+            color: Colors.black87,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Home();
+            }));
+          },
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                const SizedBox(height: 118),
-                Align(
-                  child: Container(
-                    height: 270,
-                    width: 270,
-                    decoration:
-                        const BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 1.5,
-                        spreadRadius: -2.0,
-                        offset: Offset(8.0, 8.0),
-                      ),
-                    ]),
-                    child: ClipOval(
-                      child: WaveWidget(
-                        config: CustomConfig(
-                          colors: [
-                            Colors.blue,
-                          ],
-                          durations: [
-                            5000,
-                          ],
-                          heightPercentages: [
-                            percentage,
-                          ],
+      backgroundColor: const Color.fromRGBO(244, 243, 243, 1),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(40))),
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Text(
+                    'Água',
+                    style: TextStyle(color: Colors.black87, fontSize: 32),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Acompanhe a sua quantidade de agua consumida durante o dia',
+                    style: TextStyle(color: Colors.black45, fontSize: 22),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.all(32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    child: Container(
+                      height: 258,
+                      width: 258,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 10.0,
+                              offset: Offset(0.0, 8.0),
+                            ),
+                          ]),
+                      child: ClipOval(
+                        child: WaveWidget(
+                          config: CustomConfig(
+                            colors: [
+                              Colors.white,
+                            ],
+                            durations: [
+                              10000,
+                            ],
+                            heightPercentages: [
+                             percentage
+                            ],
+                          ),
+                          backgroundColor: Colors.black54,
+                          size: Size(double.infinity, double.infinity),
+                          waveAmplitude: 0,
                         ),
-                        backgroundColor: Colors.deepOrangeAccent,
-                        size: Size(double.infinity, double.infinity),
-                        waveAmplitude: 0,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  height: 62,
-                  width: 32,
-                  child: Row(
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ElevatedButton(
+                    style: style,
+                    onPressed: () {
+                      change();
+                    },
+                    child: Text(add >= 0 ? 'Adicionar' : 'Remover'),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const SizedBox(width: 152),
-                      TextButton(
+                      ElevatedButton(
+                        style: style,
                         onPressed: () {
                           setState(() {
-                            print(percentage);
-                            add = 0;
+                            add -= 10;
                           });
                         },
-                        child: const Text(
-                          'Adicionar',
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 22,
-                          ),
-                        ),
-                      )
+                        child: Text('-'),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+
+                      Text('$add', style: TextStyle(color: Colors.black87, fontSize: 32),),
+
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      ElevatedButton(
+                        style: style,
+                        onPressed: () {
+                          setState(() {
+                            add += 10;
+                          });
+                        },
+                        child: const Text('+')
+                      ),
                     ],
-                  ),
-                ),
-                Container(
-                  height: 32,
-                  width: 32,
-                  child: Row(
-                    children: <Widget>[
-                      const SizedBox(width: 137),
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              add -= 10;
-                            });
-                          },
-                          icon: const Icon(Icons.remove),
-                          color: Colors.deepOrangeAccent),
-                      Text('$add ml', style: TextStyle(fontSize: 22)),
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              add += 10;
-                            });
-                          },
-                          icon: const Icon(Icons.add),
-                          color: Colors.blue),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

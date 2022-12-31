@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.black54
+                          color: Colors.black87
                         ),
                         child: const Align(
                           alignment: Alignment.center,
@@ -163,7 +163,28 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    SizedBox(height: 20,),
+                    const Text(
+                      'Funções',
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
+                    ),
+                    SizedBox(height: 20,),
+                    Container(
+                      height: 200,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Rotas(agua(), 'Água',context),
+                          Rotas(formulario(), 'CheckUp',context),
+                          Rotas(contadorPassos(), 'Passos',context),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
                   ],
                 ),
               )
@@ -175,7 +196,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget Rotas(rota, context) {
+Widget Rotas(rota, texto, context) {
   return AspectRatio(
     aspectRatio: 2.62 / 3,
     child: Container(
@@ -186,17 +207,18 @@ Widget Rotas(rota, context) {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-                begin: Alignment.bottomRight,
-                stops: const [
-                  0.1,
-                  0.9
-                ],
-                colors: [
-                  Colors.white.withOpacity(.8),
-                  Colors.black54.withOpacity(.1)
-                ])),
+            color: Colors.black87
+        ),
         child: GestureDetector(
+          child: CircularPercentIndicator(
+            radius: 70.0,
+            lineWidth: 13.0,
+            animation: false,
+            percent: 1.0,
+            center: Text(texto, style: TextStyle(color: Colors.white, fontSize: 25)),
+            circularStrokeCap: CircularStrokeCap.round,
+            progressColor: Colors.white70,
+          ),
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
@@ -221,10 +243,10 @@ Widget progresso(texto, porcentagem, context) {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-          color: Colors.black54
+          color: Colors.black87
           ),
         child: CircularPercentIndicator(
-          radius: 60.0,
+          radius: 70.0,
           lineWidth: 13.0,
           animation: false,
           percent: porcentagem,
