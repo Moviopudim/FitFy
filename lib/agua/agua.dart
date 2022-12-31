@@ -14,15 +14,13 @@ class agua extends StatefulWidget {
 }
 
 class _aguaState extends State<agua> {
-  final ButtonStyle style =  ButtonStyle(
+  final ButtonStyle style = ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(5)),
       backgroundColor: MaterialStateProperty.all<Color>(Colors.black54),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-          )
-      )
-  );
+        borderRadius: BorderRadius.circular(12.0),
+      )));
 
   late int add = 0;
   late int consumido = 0;
@@ -30,9 +28,9 @@ class _aguaState extends State<agua> {
   late double percentage = 1;
 
   @override
-  void initState(){
-    var DoubleBox =  Hive.box<double>("DoubleBox");
-    var IntBox =  Hive.box<int>("IntBox");
+  void initState() {
+    var DoubleBox = Hive.box<double>("DoubleBox");
+    var IntBox = Hive.box<int>("IntBox");
 
     setState(() {
       percentage = DoubleBox.get("porcentagem", defaultValue: 1.0)!;
@@ -40,23 +38,35 @@ class _aguaState extends State<agua> {
     });
   }
 
-  void change(){
-    var DoubleBox =  Hive.box<double>("DoubleBox");
-    var IntBox =  Hive.box<int>("IntBox");
+  void change() {
+    var DoubleBox = Hive.box<double>("DoubleBox");
+    var IntBox = Hive.box<int>("IntBox");
 
     consumido += add;
 
-    if(consumido <= -1){
+    if (consumido <= -1) {
       consumido = 0;
     }
 
-    print('add:$add');
     setState(() {
       percentage = 1.0 - (consumido / meta);
     });
 
     DoubleBox.put('porcentagem', percentage);
     IntBox.put('consumido', consumido);
+  }
+
+  void reset() {
+    var DoubleBox = Hive.box<double>("DoubleBox");
+    var IntBox = Hive.box<int>("IntBox");
+
+    setState(() {
+      DoubleBox.put('porcentagem', 100.0);
+      IntBox.put('consumido', 0);
+
+      percentage = DoubleBox.get("porcentagem", defaultValue: 1.0)!;
+      consumido = IntBox.get("consumido", defaultValue: 0)!;
+    });
   }
 
   @override
@@ -88,8 +98,8 @@ class _aguaState extends State<agua> {
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(40))),
-              padding: const EdgeInsets.all(20.0),
+                      BorderRadius.vertical(bottom: Radius.circular(25))),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const <Widget>[
@@ -106,6 +116,13 @@ class _aguaState extends State<agua> {
               ),
             ),
             SizedBox(height: 20),
+            ElevatedButton(
+              style: style,
+              onPressed: () {
+                reset();
+              },
+              child: Text('Resetar'),
+            ),
             Padding(
               padding: EdgeInsets.all(32),
               child: Column(
@@ -133,9 +150,7 @@ class _aguaState extends State<agua> {
                             durations: [
                               10000,
                             ],
-                            heightPercentages: [
-                             percentage
-                            ],
+                            heightPercentages: [percentage],
                           ),
                           backgroundColor: Colors.black54,
                           size: Size(double.infinity, double.infinity),
@@ -169,21 +184,21 @@ class _aguaState extends State<agua> {
                       const SizedBox(
                         width: 15,
                       ),
-
-                      Text('$add', style: TextStyle(color: Colors.black87, fontSize: 32),),
-
+                      Text(
+                        '$add',
+                        style: TextStyle(color: Colors.black87, fontSize: 32),
+                      ),
                       const SizedBox(
                         width: 15,
                       ),
                       ElevatedButton(
-                        style: style,
-                        onPressed: () {
-                          setState(() {
-                            add += 10;
-                          });
-                        },
-                        child: const Text('+')
-                      ),
+                          style: style,
+                          onPressed: () {
+                            setState(() {
+                              add += 10;
+                            });
+                          },
+                          child: const Text('+')),
                     ],
                   )
                 ],
