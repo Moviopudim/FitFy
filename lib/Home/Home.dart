@@ -2,6 +2,7 @@ import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import '../Config/settings.dart';
+import '../Tracker/Tracker.dart';
 import '../agua/agua.dart';
 import '/Perguntas/CheckUp.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -75,8 +76,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return settings();
+            }));
+          },
+        ),
+      ),
       extendBody: true,
-      backgroundColor: const Color.fromRGBO(244, 243, 243, 1),
+      backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
       body: SafeArea(
         left: false,
         right: false,
@@ -90,7 +106,7 @@ class _HomeState extends State<Home> {
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.vertical(bottom: Radius.circular(30))),
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const <Widget>[
@@ -102,7 +118,7 @@ class _HomeState extends State<Home> {
                       height: 5,
                     ),
                     Text(
-                      'Inspiração!',
+                      'Inspiração.',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 40,
@@ -132,7 +148,7 @@ class _HomeState extends State<Home> {
                       child: Row(
                         children: <Widget>[
                           //Progresso
-                          progresso('Passos',percentage, context),
+                          progresso('Passos', percentage, context),
                           progresso('Água', 0.5, context),
                         ],
                       ),
@@ -147,9 +163,8 @@ class _HomeState extends State<Home> {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.black87
-                        ),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white),
                         child: const Align(
                           alignment: Alignment.center,
                           child: Padding(
@@ -157,13 +172,15 @@ class _HomeState extends State<Home> {
                             child: Text(
                               'Best Design',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                                  TextStyle(color: Colors.black, fontSize: 25),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     const Text(
                       'Funções',
                       style: TextStyle(
@@ -171,19 +188,25 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black87),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Container(
                       height: 200,
+                      width: double.infinity,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
-                          Rotas(agua(), 'Água',context),
-                          Rotas(formulario(), 'CheckUp',context),
-                          Rotas(contadorPassos(), 'Passos',context),
+                          Rotas(agua(), 'Água', context),
+                          Rotas(tracker(), 'Tracker', context),
+                          Rotas(formulario(), 'CheckUp', context),
+                          Rotas(contadorPassos(), 'Passos', context),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               )
@@ -205,16 +228,15 @@ Widget Rotas(rota, texto, context) {
       ),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.black87
-        ),
+            borderRadius: BorderRadius.circular(20), color: Colors.white),
         child: GestureDetector(
           child: CircularPercentIndicator(
             radius: 70.0,
             lineWidth: 13.0,
             animation: false,
             percent: 1.0,
-            center: Text(texto, style: TextStyle(color: Colors.white, fontSize: 25)),
+            center: Text(texto,
+                style: TextStyle(color: Colors.black, fontSize: 25)),
             circularStrokeCap: CircularStrokeCap.round,
             progressColor: Colors.white70,
           ),
@@ -241,17 +263,16 @@ Widget progresso(texto, porcentagem, context) {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          color: Colors.black87
-          ),
+            borderRadius: BorderRadius.circular(20), color: Colors.white),
         child: CircularPercentIndicator(
           radius: 70.0,
           lineWidth: 13.0,
           animation: false,
           percent: porcentagem,
-          center: Text(texto, style: TextStyle(color: Colors.white, fontSize: 25)),
+          center:
+              Text(texto, style: TextStyle(color: Colors.black, fontSize: 25)),
           circularStrokeCap: CircularStrokeCap.round,
-          progressColor: Colors.white70,
+          progressColor: Colors.white60,
         ),
       ),
     ),
