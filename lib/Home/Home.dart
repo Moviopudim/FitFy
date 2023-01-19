@@ -1,7 +1,7 @@
 import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
-import '../Config/settings.dart';
+import '../Config/profile.dart';
 import '../Tracker/Tracker.dart';
 import '../agua/agua.dart';
 import '/Perguntas/CheckUp.dart';
