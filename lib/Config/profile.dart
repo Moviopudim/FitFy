@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../Home/Home.dart';
 
 class settings extends StatefulWidget {
@@ -8,7 +9,35 @@ class settings extends StatefulWidget {
 }
 
 class _settingsState extends State<settings> {
-  bool showPassword = false;
+  late Box StringBox = Hive.box<String>('UserDataBox');
+  late Box IntBox = Hive.box<int>('IntBox');
+
+  late TextEditingController ControladorNome = TextEditingController();
+  late TextEditingController ControladorApelido = TextEditingController();
+  late TextEditingController ControladorAgua = TextEditingController();
+  late TextEditingController ControladorPassos = TextEditingController();
+
+  late int? Agua = int.tryParse(ControladorAgua.text);
+  late int? Passos = int.tryParse(ControladorPassos.text);
+
+  late Image? pfp;
+
+  late String DicaNome;
+  late String DicaApelido;
+  late String DicaAgua;
+  late String DicaPassos;
+
+  @override
+  void initState(){
+    setState(() {
+      DicaNome = '${StringBox.get('nome', defaultValue: 'The Rock')}';
+      DicaApelido = '${StringBox.get('apelido', defaultValue: 'Nome no Qual Te Chamaremos')}';
+      DicaAgua = IntBox.get('meta agua').toString();
+      DicaPassos = IntBox.get('meta passos').toString();
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,65 +85,17 @@ class _settingsState extends State<settings> {
                       height: 5,
                     ),
                     Text(
-                      'Edite Seu Nome, e-mail e metas',
+                      'Edite Seu Nome, Apelido e metas',
                       style: TextStyle(color: Colors.black87, fontSize: 25),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 32,),
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: const [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: Offset(0, 5))
-                          ],
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-                              ))),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                            color: Colors.black26,
-                          ),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              buildTextField("Nome Completo", "The rock", false),
-              buildTextField("E-mail", "rock@gmail.com", false),
-              buildTextField("Meta Agua", "Recomendado: 2500ml", true),
-              buildTextField("Meta Passos", "Recomendado: 7000", true),
+              buildTextField('Nome Completo', DicaNome, false, ControladorNome),
+              buildTextField('Apelido', DicaApelido, false, ControladorApelido),
+              buildTextField('Meta Agua', DicaAgua, true, ControladorAgua),
+              buildTextField('Meta Passos', DicaPassos, true, ControladorPassos),
               const SizedBox(
                 height: 35,
               ),
@@ -127,7 +108,9 @@ class _settingsState extends State<settings> {
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        cancel();
+                      },
                       child: const Text("CANCELAR",
                           style: TextStyle(
                               fontSize: 14,
@@ -138,12 +121,14 @@ class _settingsState extends State<settings> {
                       style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        save();
+                      },
                       child: const Text(
                         "SALVAR",
                         style: TextStyle(
                             fontSize: 14,
-                            letterSpacing: 2.2,
+                            letterSpacing: 2,
                             color: Colors.green),
                       ),
                     )
@@ -157,11 +142,42 @@ class _settingsState extends State<settings> {
     );
   }
 
+  void save(){
+    StringBox.put('nome', ControladorNome.text);
+    StringBox.put('apelido', ControladorApelido.text);
+    IntBox.put('meta agua', Agua);
+    IntBox.put('meta passos', Passos);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        action: SnackBarAction(
+          label: 'Fechar',
+          onPressed: () {},
+        ),
+        content: const Text('Dados Salvos'),
+        duration: const Duration(milliseconds: 1500),
+        width: 280.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0,
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+
+  void cancel(){
+
+  }
+
   Widget buildTextField(
-      String labelText, String placeholder, bool IsNumber) {
+      String labelText, String placeholder, bool IsNumber, TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 25, right: 16),
       child: TextField(
+        controller: controller,
         keyboardType: IsNumber != true ? TextInputType.text : TextInputType.number,
         style: TextStyle(color: Colors.black),
         maxLines: 1,

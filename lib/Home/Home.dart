@@ -1,5 +1,6 @@
 import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:pedometer/pedometer.dart';
 import '../Config/profile.dart';
 import '../Tracker/Tracker.dart';
@@ -20,6 +21,9 @@ class _HomeState extends State<Home> {
   String _status = '?';
   int steps = 0;
 
+  late Box StringBox = Hive.box<String>('UserDataBox');
+  late Box IntBox = Hive.box<int>('IntBox');
+
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double percentage = 0;
 
@@ -27,7 +31,7 @@ class _HomeState extends State<Home> {
     super.initState();
     initPlatformState();
     setState(() {
-      percentage = (steps / 6000);
+      percentage = (steps / IntBox.get('meta passos', defaultValue: 6000));
     });
   }
 
