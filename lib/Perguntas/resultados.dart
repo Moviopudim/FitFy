@@ -1,67 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../Constanst/colors.dart';
-import 'infoCard.dart';
+import '../Home/Home.dart';
 
 class resultados extends StatelessWidget {
-
   final String resultadoAgua;
   final String resultadoCreatina;
   final String resultadoImc;
-  final String resultadoPassada;
   final String resultadoProteina;
   final String resultadoPi;
 
-  resultados({Key? key, required this.resultadoAgua, required this.resultadoCreatina, required this.resultadoImc, required this.resultadoPi, required this.resultadoPassada, required this.resultadoProteina}) : super(key: key);
+  resultados(
+      {Key? key,
+      required this.resultadoAgua,
+      required this.resultadoCreatina,
+      required this.resultadoImc,
+      required this.resultadoPi,
+      required this.resultadoProteina})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Kred,
-        title: Text("Resultados"),
-        centerTitle: true,
-      ),
-
-      body: GridView.count(
-        padding: const EdgeInsets.all(20),
-        crossAxisCount: 2,
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 15,
-        primary: true,
-        children: <Widget>[
-          infoCard(
-            rotulo: "Água",
-            subtitulo: "A sua quantidade necessaria de agua é " + resultadoAgua + " ml" ,
-            imagem: 'https://img.icons8.com/material/344/water-glass.png',
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Home();
+              }));
+            },
           ),
-          infoCard(
-            rotulo: "IMC",
-            subtitulo: "O seu IMC é: " + resultadoImc ,
-            imagem: 'https://img.icons8.com/dotty/344/bmi.png',
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(25))),
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    Text(
+                      'Resultados',
+                      style: TextStyle(color: Colors.black87, fontSize: 52),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 22,),
+              Card('Quantidade de Proteina: ${resultadoProteina}g', context),
+              const SizedBox(height: 12,),
+              Card('Quantidade Creatina: ${resultadoCreatina}g', context),
+              const SizedBox(height: 12,),
+              Card('Quantidade de Água: ${resultadoAgua}ml', context),
+              const SizedBox(height: 12,),
+              Card('Imc: ${resultadoImc}', context),
+              const SizedBox(height: 12,),
+              Card('Peso Ideal : ${resultadoPi}Kg', context),
+            ],
           ),
-          infoCard(
-            rotulo: "Proteina",
-            subtitulo: "Voce precisa de " + resultadoProteina + "G " + "De proteina por dia",
-            imagem: 'https://img.icons8.com/external-outline-andi-nur-abdillah/344/external-Protein-nutrition-(outline)-outline-andi-nur-abdillah.png',
-          ),
-          infoCard(
-            rotulo: "Creatina",
-            subtitulo: "A sua quantidade necessaria de creatina é " + resultadoCreatina + " mg" ,
-            imagem: 'https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/344/external-protein-sport-tanah-basah-glyph-tanah-basah.png',
-          ),
-          infoCard(
-            rotulo: "Peso Ideal",
-            subtitulo: "O seu peso ideal é: $resultadoPi",
-            imagem: 'https://img.icons8.com/ios/344/weight-kg.png',
-          ),
-          infoCard(
-            rotulo: "Passada",
-            subtitulo: "O tamanho da sua passada é: " + resultadoPassada,
-            imagem: 'https://img.icons8.com/ios-filled/344/right-shoe.png',
-          ),
-        ],
-      )
-    );
+        ));
   }
 }
 
+Widget Card(texto, context) {
+  return AspectRatio(
+    aspectRatio: 12 / 3,
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: Colors.white),
+          child: Text(
+            texto,
+            style: TextStyle(
+              fontSize: 22
+            ),
+          )),
+    ),
+  );
+}

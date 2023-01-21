@@ -37,8 +37,7 @@ class _SlangState extends State<Vitality> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
        textTheme: GoogleFonts.oswaldTextTheme(),

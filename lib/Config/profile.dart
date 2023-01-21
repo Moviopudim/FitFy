@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import '../Home/Home.dart';
 
@@ -55,6 +56,7 @@ class _settingsState extends State<settings> {
             }));
           },
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
       body: Container(
@@ -143,10 +145,60 @@ class _settingsState extends State<settings> {
   }
 
   void save(){
-    StringBox.put('nome', ControladorNome.text);
-    StringBox.put('apelido', ControladorApelido.text);
-    IntBox.put('meta agua', Agua);
-    IntBox.put('meta passos', Passos);
+    if(ControladorPassos.text.isNotEmpty && ControladorAgua.text.isNotEmpty && ControladorApelido.text.isNotEmpty && ControladorNome.text.isNotEmpty){
+      StringBox.put('nome', ControladorNome.text);
+      StringBox.put('apelido', ControladorApelido.text);
+      IntBox.put('meta agua', Agua);
+      IntBox.put('meta passos', Passos);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return Home();
+      }));
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          action: SnackBarAction(
+            label: 'Fechar',
+            onPressed: () {},
+          ),
+          content: const Text('Dados Salvos'),
+          duration: const Duration(milliseconds: 1500),
+          width: 380.0,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          action: SnackBarAction(
+            label: 'Fechar',
+            onPressed: () {},
+          ),
+          content: const Text('Preencha Todos os Campos'),
+          duration: const Duration(milliseconds: 1500),
+          width: 380.0,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+      );
+    }
+  }
+
+  void cancel(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return Home();
+    }));
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -154,7 +206,7 @@ class _settingsState extends State<settings> {
           label: 'Fechar',
           onPressed: () {},
         ),
-        content: const Text('Dados Salvos'),
+        content: const Text('Operação Cancelada'),
         duration: const Duration(milliseconds: 1500),
         width: 280.0,
         padding: const EdgeInsets.symmetric(
@@ -166,10 +218,6 @@ class _settingsState extends State<settings> {
         ),
       ),
     );
-  }
-
-  void cancel(){
-
   }
 
   Widget buildTextField(

@@ -1,5 +1,6 @@
 import 'package:Vitality/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:pedometer/pedometer.dart';
 import '../Config/profile.dart';
@@ -24,12 +25,17 @@ class _HomeState extends State<Home> {
   late Box StringBox = Hive.box<String>('UserDataBox');
   late Box IntBox = Hive.box<int>('IntBox');
 
+  late String nome = 'Seja a Sua Inspiração';
+
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double percentage = 0;
 
+  @override
   void initState() {
     super.initState();
     initPlatformState();
+
+    print(IntBox.get('meta passos', defaultValue: 6000));
     setState(() {
       percentage = (steps / IntBox.get('meta passos', defaultValue: 6000));
     });
@@ -94,6 +100,7 @@ class _HomeState extends State<Home> {
             }));
           },
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       extendBody: true,
       backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
@@ -113,17 +120,13 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Text(
-                      'Seja a Sua',
-                      style: TextStyle(color: Colors.black87, fontSize: 25),
-                    ),
-                    SizedBox(
+                  children: <Widget>[
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      'Inspiração.',
-                      style: TextStyle(
+                      nome,
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 40,
                           fontWeight: FontWeight.bold),
@@ -150,8 +153,8 @@ class _HomeState extends State<Home> {
                     Container(
                       height: 200,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          //Progresso
                           progresso('Passos', percentage, context),
                           progresso('Água', 0.5, context),
                         ],
@@ -193,7 +196,7 @@ class _HomeState extends State<Home> {
                           color: Colors.black87),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                       height: 200,
@@ -258,9 +261,9 @@ Widget Rotas(rota, texto, context) {
 
 Widget progresso(texto, porcentagem, context) {
   return AspectRatio(
-    aspectRatio: 2.78 / 3,
+    aspectRatio: 2.5 / 3,
     child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15.0),
+      margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
       ),
