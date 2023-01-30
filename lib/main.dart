@@ -40,6 +40,7 @@ class _SlangState extends State<Vitality> {
       themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
+       useMaterial3: true,
        textTheme: GoogleFonts.oswaldTextTheme(),
       ),
       home: IsViewed != 0 ? OnBoard() : Home(),

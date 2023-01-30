@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../Constanst/colors.dart';
 import '../Home/Home.dart';
-import '../Perguntas/resultados.dart';
+import '../CheckUp/resultados.dart';
 
 class formulario extends StatefulWidget {
   formulario({Key? key}) : super(key: key);
@@ -57,12 +57,12 @@ class _formularioState extends State<formulario> {
                 children: const <Widget>[
                   Text(
                     'CheckUp',
-                    style: TextStyle(color: Colors.black87, fontSize: 32),
+                    style: TextStyle(color: Colors.black87, fontSize: 40),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'Responda 3 Perguntas e Tenha Todas as Respostas que Você Precisa',
-                    style: TextStyle(color: Colors.black45, fontSize: 22),
+                    style: TextStyle(color: Colors.black45, fontSize: 30),
                   ),
                 ],
               ),

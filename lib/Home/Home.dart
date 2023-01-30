@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:pedometer/pedometer.dart';
+import '../CheckUP/CheckUp.dart';
 import '../Config/profile.dart';
 import '../Tracker/Tracker.dart';
+import '../Treinos/Treinos.dart';
 import '../agua/agua.dart';
-import '/Perguntas/CheckUp.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class Home extends StatefulWidget {
@@ -177,9 +178,9 @@ class _HomeState extends State<Home> {
                           child: Padding(
                             padding: EdgeInsets.all(15.0),
                             child: Text(
-                              'Best Design',
+                              'Seja um Afiliado Visite o Nosso Site!',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 25),
+                                  TextStyle(color: Colors.black, fontSize: 20),
                             ),
                           ),
                         ),
@@ -205,9 +206,9 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
                           Rotas(agua(), 'Água', context),
+                          Rotas(treinos(), 'Treinos', context),
                           Rotas(tracker(), 'Tracker', context),
                           Rotas(formulario(), 'CheckUp', context),
-                          Rotas(contadorPassos(), 'Passos', context),
                         ],
                       ),
                     ),
