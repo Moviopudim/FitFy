@@ -13,6 +13,7 @@ int? IsViewed;
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox<String>('UserDataBox');
+  await Hive.openBox<String>('StringBox');
   await Hive.openBox<double>('DoubleBox');
   await Hive.openBox<int>('IntBox');
 
