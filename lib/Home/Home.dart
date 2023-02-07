@@ -25,11 +25,14 @@ class _HomeState extends State<Home> {
 
   late Box StringBox = Hive.box<String>('UserDataBox');
   late Box IntBox = Hive.box<int>('IntBox');
+  late Box DoubleBox = Hive.box<double>('DoubleBox');
+
 
   late String nome = 'Seja a Sua Inspiração';
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
-  late double percentage = 0;
+  late double Porcentagem = 0;
+  late double PorcentagemAgua = 0;
 
   @override
   void initState() {
@@ -38,7 +41,8 @@ class _HomeState extends State<Home> {
 
     print(IntBox.get('meta passos', defaultValue: 6000));
     setState(() {
-      percentage = (steps / IntBox.get('meta passos', defaultValue: 6000));
+      Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
+      PorcentagemAgua = (DoubleBox.get('porcentagemUser', defaultValue: 0.0));
     });
   }
 
@@ -46,7 +50,7 @@ class _HomeState extends State<Home> {
     print(event);
     setState(() {
       steps = event.steps;
-      percentage = (steps / 6000);
+      Porcentagem = (steps / 6000);
     });
   }
 
@@ -156,7 +160,7 @@ class _HomeState extends State<Home> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          progresso('Passos', percentage, context),
+                          progresso('Passos', Porcentagem, context),
                           progresso('Água', 0.5, context),
                         ],
                       ),

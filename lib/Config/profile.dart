@@ -12,6 +12,8 @@ class settings extends StatefulWidget {
 class _settingsState extends State<settings> {
   late Box StringBox = Hive.box<String>('UserDataBox');
   late Box IntBox = Hive.box<int>('IntBox');
+  var DoubleBox = Hive.box<double>("DoubleBox");
+
 
   late TextEditingController ControladorNome = TextEditingController();
   late TextEditingController ControladorApelido = TextEditingController();
