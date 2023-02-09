@@ -37,7 +37,9 @@ class _aguaState extends State<agua> {
     var IntBox = Hive.box<int>("IntBox");
 
     setState(() {
+      Porcentagem = 1.0 - (consumido / meta);
       Porcentagem = DoubleBox.get("porcentagem", defaultValue: 1.0)!;
+      PorcentagemUsuario = DoubleBox.get("porcentagemUser", defaultValue: 0)!;
       consumido = IntBox.get("consumido", defaultValue: 0)!;
     });
   }
@@ -57,6 +59,7 @@ class _aguaState extends State<agua> {
     });
 
     DoubleBox.put('porcentagem', Porcentagem);
+    DoubleBox.put('porcentagemUser', PorcentagemUsuario);
     IntBox.put('consumido', consumido);
   }
 

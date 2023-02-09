@@ -6,7 +6,7 @@ import 'package:pedometer/pedometer.dart';
 import '../CheckUP/CheckUp.dart';
 import '../Config/profile.dart';
 import '../Tracker/Tracker.dart';
-import '../Treinos/Treinos.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../agua/agua.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
     print(IntBox.get('meta passos', defaultValue: 6000));
     setState(() {
       Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
-      PorcentagemAgua = (DoubleBox.get('porcentagemUser', defaultValue: 0.0));
+      PorcentagemAgua = (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
     });
   }
 
@@ -161,7 +161,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           progresso('Passos', Porcentagem, context),
-                          progresso('Água', 0.5, context),
+                          progresso('Água',PorcentagemAgua, context),
                         ],
                       ),
                     ),
@@ -182,7 +182,7 @@ class _HomeState extends State<Home> {
                           child: Padding(
                             padding: EdgeInsets.all(15.0),
                             child: Text(
-                              'Seja um Afiliado Visite o Nosso Site!',
+                              'Alugue Este Espaço e Anuncie o Seu Produto!',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20),
                             ),
@@ -210,7 +210,6 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
                           Rotas(agua(), 'Água', context),
-                          Rotas(treinos(), 'Treinos', context),
                           Rotas(tracker(), 'Tracker', context),
                           Rotas(formulario(), 'CheckUp', context),
                         ],

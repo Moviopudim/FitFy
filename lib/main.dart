@@ -44,7 +44,7 @@ class _SlangState extends State<Vitality> {
        useMaterial3: true,
        textTheme: GoogleFonts.oswaldTextTheme(),
       ),
-      home: IsViewed != 0 ? OnBoard() : Home(),
+      home:OnBoard(),
     );
   }
 }
