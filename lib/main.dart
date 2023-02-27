@@ -8,19 +8,19 @@ import 'Introdução/inicio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-int? IsViewed;
+var BoolBox = Hive.box<bool>("BoolBox");
+
+bool? IsViewed = BoolBox.get('isSeen');
 
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox<String>('UserDataBox');
   await Hive.openBox<String>('StringBox');
+  await Hive.openBox<bool>('BoolBox');
   await Hive.openBox<double>('DoubleBox');
   await Hive.openBox<int>('IntBox');
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  IsViewed = prefs.getInt('onBoard');
 
   runApp(Vitality());
 }
@@ -42,7 +42,7 @@ class _SlangState extends State<Vitality> {
         useMaterial3: true,
         textTheme: GoogleFonts.robotoCondensedTextTheme(),
       ),
-      home: LoginPage(),
+      home: IsViewed == false ? LoginPage() : Home(),
     );
   }
 }

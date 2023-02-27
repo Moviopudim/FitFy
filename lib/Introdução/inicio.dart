@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../Home/Home.dart';
@@ -9,10 +10,16 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final apelidoController = TextEditingController();
 
-  // sign user in method
+  // hive box
+
+  var BoolBox = Hive.box<bool>("BoolBox");
+
+  // check if the user saw the intro
+  late bool isSeen;
+
   void enter(context) async {
     var ActivityPermission = await Permission.activityRecognition.request();
 
@@ -51,7 +58,7 @@ class LoginPage extends StatelessWidget {
                 size: 80,
               ),
               const SizedBox(height: 50),
-              Text(
+              const Text(
                 'Bem Vindo!',
                 style: TextStyle(
                   color: Colors.black87,
@@ -60,14 +67,14 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               MyTextField(
-                controller: usernameController,
+                controller: nameController,
                 hintText: 'Nome Completo',
                 obscureText: false,
                 lenght: 25,
               ),
               const SizedBox(height: 10),
               MyTextField(
-                controller: passwordController,
+                controller: apelidoController,
                 hintText: 'Apelido',
                 obscureText: false,
                 lenght: 10,
@@ -78,41 +85,71 @@ class LoginPage extends StatelessWidget {
                   var ActivityPermission =
                       await Permission.activityRecognition.request();
 
-                  if (ActivityPermission.isDenied) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: const Text(
-                        'Aceite todas as permissões para continuar.',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      duration: const Duration(milliseconds: 1500),
-                      width: 380.0,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ));
+                  if (apelidoController.text.isNotEmpty &&
+                      nameController.text.isNotEmpty) {
+                    if (ActivityPermission.isDenied) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.white,
+                        content: const Text(
+                          'Aceite todas as permissões para continuar.',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        duration: const Duration(milliseconds: 1500),
+                        width: 280.0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ));
+                    }
+
+                    if (ActivityPermission.isGranted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.white,
+                        content: const Text(
+                          'Seja bem vindo!',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        duration: const Duration(milliseconds: 1500),
+                        width: 280.0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ));
+
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }
+
+                    isSeen = true;
+
+                    BoolBox.put('isSeen', isSeen);
                   }
-
-                  if (ActivityPermission.isGranted) {
+                  if (apelidoController.text.isEmpty &&
+                      nameController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.white,
                       content: const Text(
-                          'Aceite todas as permissões para continuar.'),
+                        'Preeencha todos os campos para continuar.',
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
                       duration: const Duration(milliseconds: 1500),
-                      width: 380.0,
+                      width: 280.0,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
+                        horizontal: 16.0,
                       ),
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ));
-
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Home()));
                   }
                 },
               ),
