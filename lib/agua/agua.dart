@@ -45,7 +45,6 @@ class _aguaState extends State<agua> {
   }
 
   void adicionar() {
-
     consumido += add;
 
     if (consumido <= -1) {
@@ -136,7 +135,11 @@ class _aguaState extends State<agua> {
               onPressed: () {
                 reset();
               },
-              child: Text('Resetar', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+              child: Text(
+                'Resetar',
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(22),
@@ -173,11 +176,20 @@ class _aguaState extends State<agua> {
                         ),
                       ),
                     ),
-                  ), const SizedBox(
+                  ),
+                  const SizedBox(
                     height: 15,
                   ),
-                  Text(consumido >= 0 ? '${consumido}ml' : '0ml',  style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
-                  Text('${PorcentagemUsuario.toStringAsPrecision(3)}%',  style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold)),
+                  Text(consumido >= 0 ? '${consumido}ml' : '0ml',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
+                  Text('${PorcentagemUsuario.toStringAsPrecision(3)}%',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(
                     height: 15,
                   ),
@@ -186,13 +198,12 @@ class _aguaState extends State<agua> {
                       padding: EdgeInsets.all(15),
                       backgroundColor: Colors.white,
                       shadowColor: Colors.black45,
-                      elevation: 7,
-                      side: BorderSide(width: 0.5),
                     ),
                     onPressed: () {
                       adicionar();
                     },
-                    child: Text(add >= 0 ? 'Adicionar' : 'Remover',  style: TextStyle(color: Colors.black)),
+                    child: Text(add >= 0 ? 'Adicionar' : 'Remover',
+                        style: TextStyle(color: Colors.black)),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -202,15 +213,17 @@ class _aguaState extends State<agua> {
                           padding: EdgeInsets.all(15),
                           backgroundColor: Colors.white,
                           shadowColor: Colors.black45,
-                          elevation: 7,
-                          side: BorderSide(width: 0.5),
                         ),
                         onPressed: () {
                           setState(() {
-                            add -= 10;
+                            add -= 50;
                           });
                         },
-                        child: Text('-', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                        child: Text(
+                          '-',
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(
                         width: 15,
@@ -227,15 +240,19 @@ class _aguaState extends State<agua> {
                             padding: EdgeInsets.all(15),
                             backgroundColor: Colors.white,
                             shadowColor: Colors.black45,
-                            elevation: 7,
-                            side: BorderSide(width: 0.5),
                           ),
                           onPressed: () {
                             setState(() {
-                              add += 10;
+                              add += 50;
                             });
                           },
-                          child: const Text('+', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),)),
+                          child: const Text(
+                            '+',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )),
                     ],
                   )
                 ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Introdução/OnBoard.dart';
+import 'Introdução/inicio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,7 +17,7 @@ void main() async {
   await Hive.openBox<double>('DoubleBox');
   await Hive.openBox<int>('IntBox');
 
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   IsViewed = prefs.getInt('onBoard');
@@ -34,19 +34,15 @@ class Vitality extends StatefulWidget {
 
 class _SlangState extends State<Vitality> {
   @override
-
-
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.light,
       title: 'Home',
       theme: ThemeData(
-       useMaterial3: true,
-       textTheme: GoogleFonts.oswaldTextTheme(),
+        useMaterial3: true,
+        textTheme: GoogleFonts.robotoCondensedTextTheme(),
       ),
-      home:OnBoard(),
+      home: LoginPage(),
     );
   }
 }
-
-
