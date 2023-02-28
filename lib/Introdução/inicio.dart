@@ -16,6 +16,7 @@ class LoginPage extends StatelessWidget {
   // hive box
 
   var BoolBox = Hive.box<bool>("BoolBox");
+  var StringBox = Hive.box<String>("StringBox");
 
   // check if the user saw the intro
   late bool isSeen;
@@ -131,6 +132,8 @@ class LoginPage extends StatelessWidget {
                     isSeen = true;
 
                     BoolBox.put('isSeen', isSeen);
+                    StringBox.put('nome', nameController.text);
+                    StringBox.put('apelido', apelidoController.text);
                   }
                   if (apelidoController.text.isEmpty &&
                       nameController.text.isEmpty) {

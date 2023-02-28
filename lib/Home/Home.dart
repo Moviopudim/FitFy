@@ -27,8 +27,7 @@ class _HomeState extends State<Home> {
   late Box IntBox = Hive.box<int>('IntBox');
   late Box DoubleBox = Hive.box<double>('DoubleBox');
 
-
-  late String nome = 'Seja a Sua Inspiração';
+  late String nome = '';
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double Porcentagem = 0;
@@ -42,7 +41,9 @@ class _HomeState extends State<Home> {
     print(IntBox.get('meta passos', defaultValue: 6000));
     setState(() {
       Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
-      PorcentagemAgua = (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
+      PorcentagemAgua =
+          (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
+      nome = StringBox.get('apelido');
     });
   }
 
@@ -130,10 +131,17 @@ class _HomeState extends State<Home> {
                       height: 5,
                     ),
                     Text(
+                      'Olá',
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
                       nome,
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 40,
+                          fontSize: 50,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -161,7 +169,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           progresso('Passos', Porcentagem, context),
-                          progresso('Água',PorcentagemAgua, context),
+                          progresso('Água', PorcentagemAgua, context),
                         ],
                       ),
                     ),
