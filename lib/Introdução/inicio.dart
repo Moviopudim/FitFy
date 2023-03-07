@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,31 +20,8 @@ class LoginPage extends StatelessWidget {
   var BoolBox = Hive.box<bool>("BoolBox");
   var StringBox = Hive.box<String>("StringBox");
 
-  // check if the user saw the intro
+  // verifica se o maldito do usuario finalizou a introdução
   late bool isSeen;
-
-  void enter(context) async {
-    var ActivityPermission = await Permission.activityRecognition.request();
-
-    if (ActivityPermission.isDenied) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        action: SnackBarAction(
-          label: 'Fechar',
-          onPressed: () {},
-        ),
-        content: const Text('Dados Salvos'),
-        duration: const Duration(milliseconds: 1500),
-        width: 380.0,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0,
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,58 +62,38 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               MyButton(
                 onTap: () async {
+                  //permissões
                   var ActivityPermission =
                       await Permission.activityRecognition.request();
+                  var Notifications = Permission.notification.request();
 
+                  //verifica se os campos estão preenchidos
                   if (apelidoController.text.isNotEmpty &&
                       nameController.text.isNotEmpty) {
                     if (ActivityPermission.isDenied) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Colors.white,
-                        content: const Text(
-                          'Aceite todas as permissões para continuar.',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
-                        duration: const Duration(milliseconds: 1500),
-                        width: 280.0,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ));
+                      snackBar(
+                          context, 'Aceite todas as permissões para continuar');
                     }
 
                     if (ActivityPermission.isGranted) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Colors.white,
-                        content: const Text(
-                          'Seja bem vindo!',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
-                        duration: const Duration(milliseconds: 1500),
-                        width: 280.0,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ));
+                      snackBar(context, 'Seja bem vindo!');
 
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Home()));
+
+                      isSeen = true;
+
+                      BoolBox.put('isSeen', isSeen);
+                      StringBox.put('nome', nameController.text);
+                      StringBox.put('apelido', apelidoController.text);
+
+                      print(apelidoController.text);
+                      print(nameController.text);
                     }
-
-                    isSeen = true;
-
-                    BoolBox.put('isSeen', isSeen);
-                    StringBox.put('nome', nameController.text);
-                    StringBox.put('apelido', apelidoController.text);
                   }
+                  //verifica se os campos não estão preenchidos (o else não funciona corretamente nesse caso)
                   if (apelidoController.text.isEmpty &&
                       nameController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -233,3 +192,24 @@ class MyTextField extends StatelessWidget {
     );
   }
 }
+
+void snackBar(context, texto) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    backgroundColor: Colors.white,
+    content: Text(
+      texto,
+      style: TextStyle(fontSize: 20, color: Colors.black),
+    ),
+    duration: const Duration(milliseconds: 1500),
+    width: 280.0,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 16.0,
+    ),
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  ));
+}
+
+void enter(context) {}
