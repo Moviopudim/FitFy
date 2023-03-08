@@ -42,11 +42,4 @@ flutter:
   uses-material-design: true
   assets:
     - Assets/img-inicio.png
-    - Assets/img-1.png
-    - Assets/img-2.png
-    - Assets/img-3.png
-    - Assets/img-4.png
-    - Assets/img-5.png
-    - Assets/img-6.png
-
 fonts:

@@ -86,8 +86,10 @@ class LoginPage extends StatelessWidget {
                       isSeen = true;
 
                       BoolBox.put('isSeen', isSeen);
-                      StringBox.put('nome', nameController.text);
-                      StringBox.put('apelido', apelidoController.text);
+                      StringBox.putAll({
+                        'nome': nameController.text,
+                        'apelido': apelidoController.text
+                      });
 
                       print(apelidoController.text);
                       print(nameController.text);
@@ -211,5 +213,3 @@ void snackBar(context, texto) {
     ),
   ));
 }
-
-void enter(context) {}

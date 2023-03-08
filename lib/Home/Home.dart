@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   late Box IntBox = Hive.box<int>('IntBox');
   late Box DoubleBox = Hive.box<double>('DoubleBox');
 
-  late String nome = 'Marco';
+  late String apelido = 'Marco';
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double Porcentagem = 0;
@@ -37,12 +37,15 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     initPlatformState();
+
     setState(() {
       Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
-
       PorcentagemAgua =
           (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
     });
+
+    print(StringBox.get('apelido'));
+    print(StringBox.get('nome'));
   }
 
   void onStepCount(StepCount event) {
@@ -136,7 +139,7 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      nome,
+                      apelido,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 50,

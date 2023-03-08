@@ -42,7 +42,7 @@ class _SlangState extends State<Vitality> {
         useMaterial3: true,
         textTheme: GoogleFonts.robotoCondensedTextTheme(),
       ),
-      home: LoginPage(),
+      home: IsViewed == true ? Home() : LoginPage(),
     );
   }
 }
