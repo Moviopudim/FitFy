@@ -1,4 +1,4 @@
-import 'package:Vitality/Funcoes/contador%20passos.dart';
+import '/Funcoes/contador%20passos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -6,7 +6,6 @@ import 'package:pedometer/pedometer.dart';
 import '../CheckUP/CheckUp.dart';
 import '../Config/profile.dart';
 import '../Tracker/Tracker.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import '../agua/agua.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -26,8 +25,12 @@ class _HomeState extends State<Home> {
   late Box StringBox = Hive.box<String>('UserDataBox');
   late Box IntBox = Hive.box<int>('IntBox');
   late Box DoubleBox = Hive.box<double>('DoubleBox');
+  late Box BoolBox = Hive.box<bool>("BoolBox");
 
-  late String nome = 'Seja a Sua Inspiração';
+  late String nome = '';
+  late String saudacao = '';
+
+  late double fontSize = DoubleBox.get('FontSize');
 
   final controller = PageController(viewportFraction: 0.5, keepPage: true);
   late double Porcentagem = 0;
@@ -38,12 +41,35 @@ class _HomeState extends State<Home> {
     super.initState();
     initPlatformState();
 
+    if (BoolBox.get('IsSent') == true) {
+      setState(
+        () {
+          StringBox.put('saudacao', 'Olá!');
+          DoubleBox.put('FontSize', 30.0);
+
+          nome = StringBox.get('apelido');
+          saudacao = StringBox.get('saudacao');
+          fontSize = DoubleBox.get('FontSize');
+        },
+      );
+    } else {
+      StringBox.put('NomeHome', 'Bem Vindo!');
+      StringBox.put('saudacao', '');
+      DoubleBox.put('FontSize', 10.0);
+
+      nome = StringBox.get('NomeHome');
+      saudacao = StringBox.get('saudacao');
+      fontSize = DoubleBox.get('FontSize');
+    }
+
     print(IntBox.get('meta passos', defaultValue: 6000));
-    setState(() {
-      Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
-      PorcentagemAgua =
-          (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
-    });
+    setState(
+      () {
+        Porcentagem = (steps / IntBox.get('meta passos', defaultValue: 6000));
+        PorcentagemAgua =
+            (DoubleBox.get('porcentagemUser', defaultValue: 0.0)) / 100;
+      },
+    );
   }
 
   void onStepCount(StepCount event) {
@@ -110,8 +136,6 @@ class _HomeState extends State<Home> {
       extendBody: true,
       backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
       body: SafeArea(
-        left: false,
-        right: false,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,8 +145,8 @@ class _HomeState extends State<Home> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(30))),
-                padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 10.0),
+                        BorderRadius.vertical(bottom: Radius.circular(40))),
+                padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -130,16 +154,23 @@ class _HomeState extends State<Home> {
                       height: 5,
                     ),
                     Text(
+                      saudacao,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: fontSize,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
                       nome,
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold),
+                          fontSize: 50,
+                          fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 7.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -153,7 +184,7 @@ class _HomeState extends State<Home> {
                           color: Colors.black87),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Container(
                       height: 200,

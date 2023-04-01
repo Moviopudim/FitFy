@@ -1,9 +1,8 @@
-import 'package:Vitality/Home/Home.dart';
+import 'Home/Home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'Introdução/inicio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,7 +41,7 @@ class _SlangState extends State<Vitality> {
         useMaterial3: true,
         textTheme: GoogleFonts.robotoCondensedTextTheme(),
       ),
-      home: IsViewed == true ? Home() : LoginPage(),
+      home: Home(),
     );
   }
 }

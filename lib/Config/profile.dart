@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -12,8 +11,8 @@ class settings extends StatefulWidget {
 class _settingsState extends State<settings> {
   late Box StringBox = Hive.box<String>('UserDataBox');
   late Box IntBox = Hive.box<int>('IntBox');
-  var DoubleBox = Hive.box<double>("DoubleBox");
-
+  late Box BoolBox = Hive.box<bool>("BoolBox");
+  late Box DoubleBox = Hive.box<double>("DoubleBox");
 
   late TextEditingController ControladorNome = TextEditingController();
   late TextEditingController ControladorApelido = TextEditingController();
@@ -31,15 +30,15 @@ class _settingsState extends State<settings> {
   late String DicaPassos;
 
   @override
-  void initState(){
+  void initState() {
     setState(() {
       DicaNome = '${StringBox.get('nome', defaultValue: 'The Rock')}';
-      DicaApelido = '${StringBox.get('apelido', defaultValue: 'Nome no Qual Te Chamaremos')}';
+      DicaApelido =
+          '${StringBox.get('apelido', defaultValue: 'Nome no Qual Te Chamaremos')}';
       DicaAgua = IntBox.get('meta agua').toString();
       DicaPassos = IntBox.get('meta passos').toString();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _settingsState extends State<settings> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(30))),
+                        BorderRadius.vertical(bottom: Radius.circular(30))),
                 padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,11 +94,14 @@ class _settingsState extends State<settings> {
                   ],
                 ),
               ),
-              const SizedBox(height: 32,),
+              const SizedBox(
+                height: 32,
+              ),
               buildTextField('Nome Completo', DicaNome, false, ControladorNome),
               buildTextField('Apelido', DicaApelido, false, ControladorApelido),
               buildTextField('Meta Agua', DicaAgua, true, ControladorAgua),
-              buildTextField('Meta Passos', DicaPassos, true, ControladorPassos),
+              buildTextField(
+                  'Meta Passos', DicaPassos, true, ControladorPassos),
               const SizedBox(
                 height: 35,
               ),
@@ -110,7 +112,8 @@ class _settingsState extends State<settings> {
                   children: [
                     ElevatedButton(
                       style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
                       onPressed: () {
                         cancel();
@@ -123,7 +126,8 @@ class _settingsState extends State<settings> {
                     ),
                     ElevatedButton(
                       style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(Colors.white),
                       ),
                       onPressed: () {
                         save();
@@ -146,89 +150,43 @@ class _settingsState extends State<settings> {
     );
   }
 
-  void save(){
-    if(ControladorPassos.text.isNotEmpty && ControladorAgua.text.isNotEmpty && ControladorApelido.text.isNotEmpty && ControladorNome.text.isNotEmpty){
+  void save() {
+    if (ControladorPassos.text.isNotEmpty &&
+        ControladorAgua.text.isNotEmpty &&
+        ControladorApelido.text.isNotEmpty &&
+        ControladorNome.text.isNotEmpty) {
       StringBox.put('nome', ControladorNome.text);
       StringBox.put('apelido', ControladorApelido.text);
       IntBox.put('meta agua', Agua);
       IntBox.put('meta passos', Passos);
+      BoolBox.put('IsSent', true);
 
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return Home();
       }));
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          action: SnackBarAction(
-            label: 'Fechar',
-            onPressed: () {},
-          ),
-          content: const Text('Dados Salvos'),
-          duration: const Duration(milliseconds: 1500),
-          width: 380.0,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-          ),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-      );
-    }else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          action: SnackBarAction(
-            label: 'Fechar',
-            onPressed: () {},
-          ),
-          content: const Text('Preencha Todos os Campos'),
-          duration: const Duration(milliseconds: 1500),
-          width: 380.0,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-          ),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-      );
+      snackBar(context, 'dados salvos');
+    } else {
+      snackBar(context, 'preencha todos os campos');
     }
   }
 
-  void cancel(){
+  void cancel() {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return Home();
     }));
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        action: SnackBarAction(
-          label: 'Fechar',
-          onPressed: () {},
-        ),
-        content: const Text('Operação Cancelada'),
-        duration: const Duration(milliseconds: 1500),
-        width: 280.0,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0,
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
+    snackBar(context, 'operação cancelada');
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool IsNumber, TextEditingController controller) {
+  Widget buildTextField(String labelText, String placeholder, bool IsNumber,
+      TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.only(left: 16, top: 25, right: 16),
       child: TextField(
         controller: controller,
-        keyboardType: IsNumber != true ? TextInputType.text : TextInputType.number,
+        keyboardType:
+            IsNumber != true ? TextInputType.text : TextInputType.number,
         style: TextStyle(color: Colors.black),
         maxLines: 1,
         decoration: InputDecoration(
@@ -245,4 +203,23 @@ class _settingsState extends State<settings> {
       ),
     );
   }
+}
+
+void snackBar(context, texto) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    backgroundColor: Colors.white,
+    content: Text(
+      texto,
+      style: TextStyle(fontSize: 20, color: Colors.black),
+    ),
+    duration: const Duration(milliseconds: 1500),
+    width: 280.0,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 16.0,
+    ),
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  ));
 }
