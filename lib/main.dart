@@ -39,7 +39,6 @@ class _SlangState extends State<Vitality> {
       title: 'Home',
       theme: ThemeData(
         useMaterial3: true,
-        textTheme: GoogleFonts.robotoCondensedTextTheme(),
       ),
       home: Home(),
     );
